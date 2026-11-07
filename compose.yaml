@@ -1,0 +1,16 @@
+services:
+  staging:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3100:3100"
+    environment:
+      APP_ENV: staging
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-http://localhost:3100}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?Defina ADMIN_EMAIL no ambiente}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Defina ADMIN_PASSWORD no ambiente}
+    volumes:
+      - staging-data:/app/data
+volumes:
+  staging-data:
