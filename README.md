@@ -1,5 +1,7 @@
 # OperumData Afiliados
 
+**Foco atual: frontend.** Para revisar as telas sem API ou banco, execute `npm run preview:frontend` e abra http://localhost:3200. Use os botões de perfis fictícios. Veja [instruções do protótipo](docs/FRONTEND.md). O backend descrito abaixo está preservado para trabalho futuro; o frontend atual usa somente dados locais simulados.
+
 Aplicação de **homologação**, com frontend responsivo em português, API Node.js/Express e banco SQLite exclusivo persistente. Repositório privado e independente. GitHub armazena o código; GitHub Pages não executa o backend.
 
 **Produção não está autorizada.** Os sites operumdata.com e parceiros.operumdata.com não são dependências deste projeto e devem permanecer inalterados.
