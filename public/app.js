@@ -7,15 +7,14 @@ const statusName = { pending: 'Pendente', approved: 'Aprovado', rejected: 'Recus
 const badge = status => `<span class="badge ${esc(status)}">${esc(statusName[status] || status)}</span>`;
 function message(text, error = false) { clearTimeout(noticeTimer); notice.textContent = text; notice.className = error ? 'error' : ''; noticeTimer = setTimeout(() => { notice.textContent = ''; }, 7500); }
 async function api(path, body, method = 'POST') {
-  const response = await fetch(`/api${path}`, { method: body === undefined ? 'GET' : method, headers: { 'Content-Type': 'application/json', ...(csrf ? { 'X-CSRF-Token': csrf } : {}) }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
-  const data = await response.json();
-  if (!response.ok) throw Object.assign(new Error(data.error || 'Não foi possível concluir.'), { status: response.status });
-  return data;
+  return window.frontendDemo.request(path, body, body === undefined ? 'GET' : method);
 }
 function landing() {
+  publicNav();
   main.innerHTML = `<section class="hero"><div class="hero-copy"><div class="eyebrow">Conexões que geram oportunidades</div><h1>Sua rede pode<br>ir <em>mais longe.</em></h1><p>Indique empresas para a OperumData e acompanhe cada oportunidade em um só lugar. Transparência do cadastro à comissão.</p><button data-view="register">Solicitar meu cadastro ↗</button></div><div class="hero-visual" aria-hidden="true"><div class="network"><small>SEU POTENCIAL, EM MOVIMENTO</small><h2>Conectar.<br>Indicar. Crescer.</h2><i class="bar"></i><i class="bar"></i><i class="bar"></i><div class="note">Uma visão clara da sua operação.<br>Empresas · Níveis · Comissões</div></div></div></section><section class="steps"><article class="step"><b>01 / FAÇA PARTE</b><h3>Solicite seu cadastro</h3><p>Crie sua conta. A equipe analisa e aprova sua participação no programa.</p></article><article class="step"><b>02 / CONECTE EMPRESAS</b><h3>Registre oportunidades</h3><p>Indique empresas e acompanhe a análise, com verificação de duplicidades.</p></article><article class="step"><b>03 / ACOMPANHE TUDO</b><h3>Tenha visibilidade</h3><p>Consulte seu nível, os lançamentos de comissão e o histórico de pagamentos.</p></article></section>`;
 }
 function auth(register = false) {
+  publicNav();
   main.innerHTML = `<section class="auth"><div class="eyebrow">${register ? 'Comece sua jornada' : 'Bem-vindo de volta'}</div><h1>${register ? 'Faça novas conexões.' : 'Acesse sua conta.'}</h1><p>${register ? 'Cadastro sujeito à aprovação. Use somente dados fictícios neste ambiente.' : 'Acompanhe suas indicações e comissões de teste.'}</p><form id="${register ? 'register' : 'login'}">${register ? '<label for="name">Nome fictício</label><input id="name" name="name" autocomplete="name" maxlength="100" required>' : ''}<label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="username" maxlength="254" required><label for="password">Senha ${register ? '(mínimo de 12 caracteres)' : ''}</label><input id="password" name="password" type="password" autocomplete="${register ? 'new-password' : 'current-password'}" ${register ? 'minlength="12"' : ''} maxlength="128" required><button>${register ? 'Solicitar cadastro' : 'Entrar no painel'} →</button></form><p>${register ? 'Já tem conta?' : 'Ainda não participa?'} <button class="text" data-view="${register ? 'login' : 'register'}">${register ? 'Entrar' : 'Cadastrar'}</button></p></section>`;
 }
 const table = (headers, rows) => rows.length ? `<div class="table-wrap"><table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>` : '<div class="empty">Nenhum registro por enquanto.</div>';
@@ -40,15 +39,42 @@ function renderDashboard() {
   } else if (tabName === 'audit') {
     content.innerHTML = `<div class="panel"><h2>Histórico de ações</h2><p>Últimos 50 eventos. Horários registrados em UTC.</p><div class="log">${dashboard.audit.map(a => `<p><strong>${esc(a.action)}</strong> · ${esc(a.actor_name || 'Sistema')}<br>${esc(a.created_at)} UTC · Registro ${esc(a.target_id)}<br>${esc(a.detail)}</p>`).join('') || 'Nenhum evento.'}</div></div>`;
   }
+  if (!admin) {
+    const next = dashboard.tiers.find(t => t.min_companies > tier.count);
+    const progress = document.createElement('section');
+    progress.className = 'level-progress';
+    progress.innerHTML = `<div><span class="eyebrow">Sua evolução no programa</span><h2>${next ? `${next.min_companies - tier.count} ${next.min_companies - tier.count === 1 ? 'empresa' : 'empresas'} para chegar ao nível ${esc(next.name)}` : 'Você chegou ao maior nível do programa'}</h2><p>${tier.count} empresas aprovadas · comissão ilustrativa de ${tier.rate_bps / 100}%</p></div><div class="progress-track"><progress aria-label="Progresso para o próximo nível" value="${tier.count}" max="${next?.min_companies || Math.max(1,tier.count)}"></progress><span>${tier.count} / ${next?.min_companies || tier.count} empresas</span></div>`;
+    document.querySelector('.tabs').before(progress);
+  }
+  if (['companies', 'affiliates', 'payments'].includes(tabName)) {
+    const wrapper = content.querySelector('.table-wrap');
+    if (wrapper) {
+      const filters = document.createElement('div');
+      filters.className = 'filters';
+      filters.innerHTML = '<label class="search-label">Buscar registros<input id="search-records" type="search" placeholder="Buscar nome, empresa ou competência…"></label><label>Filtrar situação<select id="filter-status"><option value="">Todas as situações</option>' + (tabName === 'payments' ? '<option value="pending">Pendente</option><option value="paid">Pago</option>' : '<option value="pending">Pendente</option><option value="approved">Aprovado</option><option value="rejected">Recusado</option>') + '</select></label>';
+      wrapper.before(filters);
+      const result = document.createElement('p'); result.id = 'filter-result'; result.setAttribute('aria-live','polite'); wrapper.after(result);
+    }
+  }
 }
+function publicNav() {
+  document.querySelector('nav').innerHTML = '<button class="text" data-view="landing">O programa</button><button class="text" data-view="login">Entrar</button><button data-view="register">Quero participar ↗</button>';
+}
+const demoBar = document.createElement('section');
+demoBar.className = 'demo-bar';
+demoBar.setAttribute('aria-label', 'Controles de demonstração');
+demoBar.innerHTML = '<div><strong>Explore a experiência</strong><span>Escolha uma visão para testar as telas.</span></div><div class="demo-actions"><button data-demo="affiliate">Painel do afiliado</button><button data-demo="admin">Administração</button><button data-demo="pending">Cadastro pendente</button><button class="demo-reset" data-reset="true">Restaurar exemplo ↺</button></div>';
+document.querySelector('header').after(demoBar);
 async function loadDashboard() { dashboard = await api('/dashboard'); csrf = dashboard.csrf; renderDashboard(); }
 document.addEventListener('click', async event => {
   const button = event.target.closest('button'); if (!button) return;
   try {
+    if (button.dataset.demo) { window.frontendDemo.use(button.dataset.demo); tabName = 'companies'; await loadDashboard(); }
+    if (button.dataset.reset) { window.frontendDemo.reset(); csrf = null; dashboard = null; landing(); message('Dados fictícios restaurados.'); }
     if (button.dataset.view) { button.dataset.view === 'landing' ? landing() : auth(button.dataset.view === 'register'); }
     if (button.dataset.tab) { tabName = button.dataset.tab; renderDashboard(); }
     if (button.dataset.action === 'refresh') await loadDashboard();
-    if (button.dataset.action === 'logout') { await api('/logout', {}); location.reload(); }
+    if (button.dataset.action === 'logout') { await api('/logout', {}); csrf = null; dashboard = null; landing(); }
     if (button.dataset.pay) {
       const payment = dashboard.payments.find(p => p.id === button.dataset.pay);
       document.querySelector('#pay-form').innerHTML = `<section class="auth"><h2>Registrar pagamento de teste</h2><p>${esc(payment.company_name)} · ${money(payment.amount_cents)}. Esta ação registra a baixa no controle de homologação.</p><form data-payment="${payment.id}">${input('reference','Referência fictícia do comprovante','text','maxlength="120"')}<button>Confirmar registro de teste</button></form></section>`;
@@ -58,11 +84,24 @@ document.addEventListener('click', async event => {
 });
 document.addEventListener('change', async event => {
   const control = event.target;
+  if (control.id === 'filter-status') filterRows();
   if (!control.dataset.status) return;
   control.disabled = true;
   try { await api(`/${control.dataset.status}/${control.dataset.id}`, { status: control.value }, 'PATCH'); await loadDashboard(); message('Situação atualizada.'); }
   catch (err) { message(err.message, true); await loadDashboard().catch(() => {}); }
 });
+function filterRows() {
+  const search = document.querySelector('#search-records')?.value.toLocaleLowerCase('pt-BR') || '';
+  const status = document.querySelector('#filter-status')?.value || '';
+  const rows = [...document.querySelectorAll('#content tbody tr')];
+  let visible = 0;
+  for (const row of rows) {
+    row.hidden = !row.textContent.toLocaleLowerCase('pt-BR').includes(search) || !!status && !row.querySelector(`.badge.${status}`);
+    if (!row.hidden) visible++;
+  }
+  document.querySelector('#filter-result').textContent = visible ? `${visible} registro(s) encontrado(s).` : 'Nenhum registro corresponde à busca. Ajuste os filtros.';
+}
+document.addEventListener('input', event => { if (event.target.id === 'search-records') filterRows(); });
 document.addEventListener('submit', async event => {
   event.preventDefault(); const form = event.target, values = Object.fromEntries(new FormData(form));
   const submit = form.querySelector('button'); if (submit.disabled) return; submit.disabled = true;
@@ -78,3 +117,4 @@ document.addEventListener('submit', async event => {
 });
 main.innerHTML = '<div class="loading">Carregando…</div>';
 loadDashboard().catch(err => { if (err.status !== 401) message(err.message, true); landing(); });
+
