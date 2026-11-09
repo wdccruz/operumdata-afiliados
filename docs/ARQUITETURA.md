@@ -1,5 +1,7 @@
 # Arquitetura
 
+**Implementação em branch própria (09/11/2026):** backend Supabase independente e painéis separados em `public/painel/` implementados em `feat/backend-supabase`. As páginas públicas abaixo continuam sem conexão, preservadas para o trabalho paralelo do Claude. Consulte [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md) para o estado efetivamente testado; os diagramas abaixo registram o desenho de referência anterior.
+
 Estado em 09/11/2026. Legenda: **[pronto]** funciona hoje; **[demo]** só demonstração com dados fictícios; **[planejado]** especificado, não existe.
 
 ## 1. Visão geral

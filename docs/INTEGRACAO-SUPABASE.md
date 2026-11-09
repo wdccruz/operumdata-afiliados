@@ -6,7 +6,7 @@
 - **Não** modificar nem depender do CRM (`wdccruz/operumdata-crm`) para implementar as funcionalidades comerciais.
 - Integração com o CRM é **possibilidade futura, por API**, e **não** será implementada agora.
 
-**Nesta branch (`feat/frontend-conversao`) nada deste documento está implementado.** O Codex implementa o banco na branch `feat/backend-supabase`, com autonomia para criar e aplicar migrations no projeto independente (ver [AGENTS.md](../AGENTS.md), "Autorização do Codex"). Não conectar ao CRM.
+**Execução em `feat/backend-supabase` (09/11/2026):** projeto independente criado, seis migrações aplicadas, APIs e painéis implementados em desenvolvimento. A revisão do frontend `0dd6152` foi incorporada nessa branch, preservando o trabalho do Claude. Estado real, testes e limitações em [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md). A autorização permite as operações técnicas rotineiras, mas não custos, CRM ou produção. O envio das páginas públicas ainda será integrado em PR combinado.
 
 ## 1. Escopo: agora × futuro
 

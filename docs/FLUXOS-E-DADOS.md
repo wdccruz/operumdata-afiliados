@@ -1,5 +1,7 @@
 # Fluxos e dados
 
+**Atualização (09/11/2026):** os fluxos de banco/API foram implementados e testados em desenvolvimento na branch `feat/backend-supabase`; painéis novos ficam em `public/painel/`. O estado atual e as limitações de Auth/e-mail estão em [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md). Os rótulos históricos abaixo descrevem a especificação anterior; o envio das páginas públicas continua pendente da integração pelo Claude, sem alterações visuais nesta branch.
+
 Cada fluxo indica o estado atual: **[real]** funciona hoje com efeito real; **[demo]** existe só como demonstração com dados fictícios; **[não implementado]** apenas especificado. Hoje **nenhum** fluxo grava dados reais. Tabelas citadas estão propostas em [INTEGRACAO-SUPABASE.md §3](INTEGRACAO-SUPABASE.md), num **banco independente** (novo projeto Supabase). Nenhum fluxo depende do CRM; a integração com o CRM é só possibilidade futura. Regras de valores: [REGRAS-COMERCIAIS.md](REGRAS-COMERCIAIS.md).
 
 ## 1. Cadastro de parceiros

@@ -1,5 +1,7 @@
 # Pendências para o Codex (sequência de implementação)
 
+**Execução em 09/11/2026:** projeto gratuito `operumdata-comercial` criado e backend publicado em branch própria, no [PR #4](https://github.com/wdccruz/operumdata-afiliados/pull/4). Banco, RLS, funções e painéis estão descritos em [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md). Ainda dependem de homologação: primeiro administrador, e-mail/SMTP, navegação autenticada por pessoa autorizada e conexão das páginas públicas. Decisões comerciais/jurídicas abertas permanecem pendentes. Esta branch incorporou a revisão de frontend `0dd6152` sem alterar seu visual.
+
 Sequência recomendada. **O Codex está autorizado a desenvolver de forma autônoma** o banco comercial num **projeto Supabase independente** (não o do CRM): criar e aplicar migrations, implementar autenticação, APIs e painéis, sem pedir aprovação a cada operação rotineira. **Não** está autorizado a contratar serviços pagos, alterar o CRM de forma destrutiva, publicar produção ou ativar cadastros reais antes dos termos jurídicos aprovados. A integração com o CRM é evolução futura. Detalhes em [AGENTS.md](../AGENTS.md) ("Autorização do Codex"). Decisões comerciais marcadas como pendentes em REGRAS-COMERCIAIS continuam dependendo da OperumData.
 
 Leia antes: [AGENTS.md](../AGENTS.md), [REGRAS-COMERCIAIS.md](REGRAS-COMERCIAIS.md), [INTEGRACAO-SUPABASE.md](INTEGRACAO-SUPABASE.md), [FLUXOS-E-DADOS.md](FLUXOS-E-DADOS.md).
@@ -81,7 +83,7 @@ Não implementar. Quando a OperumData decidir: projeto próprio com aprovação 
 
 ## Alinhamento entre as branches (frontend × backend)
 
-Registro mantido pela branch `feat/frontend-conversao`. Em 09/11/2026 a branch `feat/backend-supabase` ainda não estava publicada no GitHub, então não foi possível comparar. Pontos que o backend precisa respeitar para o frontend atual:
+Registro iniciado na branch `feat/frontend-conversao`. A branch `feat/backend-supabase` foi publicada no PR #4 e incorpora o frontend `0dd6152`. Contratos efetivos para o PR combinado: [API-COMERCIAL.md](API-COMERCIAL.md). Correspondências que devem ser mantidas:
 
 | # | Ponto | Frontend atual | Observação |
 |---|---|---|---|
@@ -92,4 +94,6 @@ Registro mantido pela branch `feat/frontend-conversao`. Em 09/11/2026 a branch `
 | A5 | Mensagens | hoje "Envio ainda não disponível" | Trocar por confirmação só com resposta 2xx real; tratar erro de rede, 409 neutro e 429. |
 | A6 | Domínios para CORS e Auth | `https://comercial.operumdata.com` (planejado) e `https://wdccruz.github.io` (prévia) | |
 | A7 | Rótulos das modalidades | "Indique uma empresa", "Apresente a oportunidade", "Feche o negócio" | Códigos internos sugeridos: `indicacao`, `apresentacao`, `prospeccao`. |
+
+Decisões técnicas já implementadas para esse alinhamento: A1 deve mapear os dois tipos para `remote_prospector`/`affiliate`; A2 usa conta por convite e rejeita senha na candidatura; A3 mantém os códigos publicados, com disponibilidade opcional; A4 aceita somente as cinco chaves UTM permitidas; A5 usa recibo persistido com resposta neutra uniforme sem duplicar candidaturas, além de erros 400/403/429; A6 permite hoje apenas origens locais, deixando a prévia/domínio para a homologação autorizada; A7 já usa comissões fixas e os códigos aprovados. Nenhum `landing.js` foi ligado à API nesta branch.
 

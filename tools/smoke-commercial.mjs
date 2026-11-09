@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {config} from '../public/painel/config.js';
+if(!config.url.includes('owpkzqobxzsutsbhjrfp'))throw new Error('Teste restrito ao projeto comercial de desenvolvimento.');
+const headers={'Content-Type':'application/json',apikey:config.publishableKey,Origin:'http://localhost:3200'};
+const call=async(name,p,extra={})=>{const response=await fetch(config.url+'/functions/v1/'+name,{method:'POST',headers:{...headers,...extra},body:JSON.stringify(p)});return {status:response.status,data:await response.json()};};
+for(const name of ['commercial-api','manage-partners','staff-invite'])assert.equal((await call(name,{action:'read',table:'companies'})).status,401);
+assert.equal((await call('partner-apply',{password:'not-allowed'})).status,400);
+const p={kind:'remote_prospector',name:'Teste Integração MCP',email:`smoke-${Date.now()}@example.test`,whatsapp:'11999999999',city:'Cidade Fictícia',uf:'SP',details:{experiencia_principal:'televendas',tempo_experiencia:'1_3',possui_equipamento:'sim'},privacy_version:'development-unapproved',conditions_version:'development-unapproved',consent:true,elapsed_ms:5000};
+const first=await call('partner-apply',p);assert.equal(first.status,200,JSON.stringify(first.data));assert.equal(first.data.received,true);assert.ok(first.data.id);
+const duplicate=await call('partner-apply',p);assert.equal(duplicate.status,200);assert.equal(duplicate.data.received,true);assert.notEqual(duplicate.data.id,first.data.id);assert.equal(duplicate.data.status,first.data.status);
+assert.equal((await call('partner-apply',p,{Origin:'https://unapproved.example.test'})).status,403);
+let last;for(let i=0;i<4;i++)last=await call('partner-apply',p);assert.equal(last.status,429);
+const privateRead=await fetch(config.url+'/rest/v1/partner_applications?select=id',{headers:{apikey:config.publishableKey}});assert.ok([401,403].includes(privateRead.status));
+const settings=await fetch(config.url+'/auth/v1/settings',{headers:{apikey:config.publishableKey}});const auth=await settings.json();assert.equal(auth.disable_signup,true);
+console.log(JSON.stringify({project:'owpkzqobxzsutsbhjrfp',unauthenticated_apis:'blocked',application:'receipt_persisted',duplicate:'same_neutral_response_receipt',rate_limit:'429',unapproved_origin:'403',anonymous_table_read:'blocked',auth_public_signup:'disabled',receipt_id:first.data.id},null,2));
