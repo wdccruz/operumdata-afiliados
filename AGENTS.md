@@ -17,6 +17,17 @@ As regras comerciais completas estão em [docs/REGRAS-COMERCIAIS.md](docs/REGRAS
 
 O negócio da OperumData, que as páginas explicam: conectar empresas brasileiras a projetos internacionais de IA e robótica, em que profissionais realizam suas atividades habituais enquanto câmeras registram o trabalho do ponto de vista de quem executa. As empresas podem receber remuneração pelas gravações aprovadas.
 
+## Autorização do Codex (decisão da OperumData, 09/11/2026)
+
+O Codex está **autorizado a desenvolver de forma autônoma** o banco comercial, na branch `feat/backend-supabase`, no **projeto Supabase independente** desta plataforma:
+
+- pode criar e aplicar migrations, implementar autenticação, APIs (Edge Functions) e painéis nesse novo projeto;
+- **não precisa pedir aprovação** a cada operação rotineira de desenvolvimento (migrations, testes, deploy em ambiente de desenvolvimento/homologação, ajustes de RLS);
+- **não está autorizado** a contratar serviços pagos, alterar o CRM de forma destrutiva (nem o projeto Supabase do CRM), publicar produção ou ativar cadastros reais antes dos termos jurídicos aprovados;
+- a integração com o CRM é evolução futura.
+
+Divisão do trabalho: o **frontend público** (`public/index.html`, `public/afiliados.html`, `public/css/`, `public/js/landing.js`, `public/assets/`), a apresentação comercial, a documentação correspondente e a configuração do domínio ficam na branch `feat/frontend-conversao`. O backend, o Supabase, a autenticação e os painéis ficam com o Codex. Quando o backend estiver pronto para receber candidaturas, o envio em `landing.js` é ligado em PR combinado entre as duas branches.
+
 ## 2. Estado atual (09/11/2026)
 
 | Parte | Estado |
@@ -26,8 +37,8 @@ O negócio da OperumData, que as páginas explicam: conectar empresas brasileira
 | Captura de UTM | **Pronta** em `sessionStorage` (`od.origem`), sem cookies, sem envio. |
 | Prévia pública | **Pronta** em GitHub Pages (branch `gh-pages`): https://wdccruz.github.io/operumdata-afiliados/ (noindex + robots.txt). |
 | Domínio `comercial.operumdata.com` | **Planejado.** Depende de registro DNS no Cloudflare autorizado pela OperumData. Ver [docs/ARQUITETURA.md §6](docs/ARQUITETURA.md). |
-| Painel do afiliado, painel do prospector, área administrativa | **Não implementados.** Só especificados. Existe um protótipo demonstrativo antigo em `public/prototipo.html` com dados fictícios e modelo de comissão **obsoleto**. |
-| Backend, banco, autenticação | **Não implementados.** Banco será **independente** (novo projeto Supabase só desta plataforma). Especificados em `docs/INTEGRACAO-SUPABASE.md` e `docs/FLUXOS-E-DADOS.md`. |
+| Painel do afiliado, painel do prospector, área administrativa | **Em desenvolvimento pelo Codex**; nesta branch só especificados. Existe um protótipo demonstrativo antigo em `public/prototipo.html` com dados fictícios e modelo de comissão **obsoleto**. |
+| Backend, banco, autenticação | **Em desenvolvimento pelo Codex** em `feat/backend-supabase` (não incluído nesta branch). Banco **independente** (novo projeto Supabase só desta plataforma). Especificados em `docs/INTEGRACAO-SUPABASE.md` e `docs/FLUXOS-E-DADOS.md`. |
 | Integração com o CRM | **Apenas possibilidade futura** por API. Não implementar agora. |
 | `src/` + `migrations/001_initial.sql` (Express + SQLite) | **Provisório e obsoleto.** Usa comissão percentual e níveis, que **não** são o modelo aprovado. Não ligar o frontend a ele e não evoluí-lo como backend definitivo. Pode ser removido quando o backend novo existir (com aprovação). |
 
@@ -75,7 +86,7 @@ Publicar a prévia (somente após aprovação da OperumData): copiar o conteúdo
 
 1. Não alterar `operumdata.com`, `parceiros.operumdata.com`, seus repositórios, DNS ou hospedagem. Não publicar na HostGator.
 2. Não publicar em produção nem ativar cadastros reais antes de existir backend seguro **e** termos jurídicos aprovados.
-3. Não usar, alterar nem depender do CRM (`wdccruz/operumdata-crm`) ou do seu projeto Supabase. O banco desta plataforma é independente e só será criado em etapa aprovada pela OperumData. Integração com o CRM é possibilidade futura por API.
+3. Não usar, alterar nem depender do CRM (`wdccruz/operumdata-crm`) ou do seu projeto Supabase. O banco desta plataforma é independente; o Codex pode desenvolvê-lo com autonomia (ver "Autorização do Codex"). Sem serviços pagos. Integração com o CRM é possibilidade futura por API.
 4. Não versionar senhas, tokens, chaves (`service_role`, chaves secretas), `.env` ou dados reais. Usar só dados fictícios em testes.
 5. Comissões são valores fixos em reais (R$ 50 / R$ 150 / R$ 300 nos afiliados; R$ 150 na prospecção remota). **Nunca** percentuais, níveis ou metas.
 6. Prospecção remota é parceria comercial independente: sem jornada fixa, controle de horas, metas mínimas ou exclusividade; o parceiro aceita ou recusa listas. Nunca usar "vaga de emprego", "salário" ou "contratação de telemarketing". Não afirmar que o aceite de termos elimina vínculo trabalhista.
@@ -88,4 +99,4 @@ Publicar a prévia (somente após aprovação da OperumData): copiar o conteúdo
 
 ## 7. Branches
 
-`main` ← `feat/homologacao` (PR #1) ← `feat/frontend-demo` (PR #2) ← `feat/frontend-conversao` (PR #3, rascunho, trabalho atual). `gh-pages` contém só a cópia publicada de `public/`.
+`main` ← `feat/homologacao` (PR #1) ← `feat/frontend-demo` (PR #2) ← `feat/frontend-conversao` (PR #3, rascunho, frontend público e documentação). `feat/backend-supabase`: backend do Codex. Não fazer merge entre as duas sem combinar. `gh-pages` contém só a cópia publicada de `public/`.

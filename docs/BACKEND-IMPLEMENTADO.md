@@ -2,6 +2,8 @@
 
 Estado verificado em 09/11/2026. Esta implementação parte de `feat/frontend-conversao` no commit `bb2120f0b6c4df8b369934387aad9ef9549f9231`, no repositório `wdccruz/operumdata-afiliados`. Branch própria: `feat/backend-supabase`. A autorização expressa da OperumData nesta data substitui as aprovações técnicas por etapa dos documentos anteriores, sem autorizar custos, produção ou alterações no CRM.
 
+A atualização paralela do Claude `0dd6152` foi incorporada posteriormente **somente na branch de backend**, preservando integralmente as alterações visuais públicas e conciliando dois documentos. Não houve merge na branch do Claude ou em main. Revisão em [PR #4](https://github.com/wdccruz/operumdata-afiliados/pull/4).
+
 ## Projeto efetivamente utilizado
 
 - Organização **OperumData**: `jcqtenzoktmfkehctzdq`, plano Free.

@@ -6,7 +6,7 @@
 - **Não** modificar nem depender do CRM (`wdccruz/operumdata-crm`) para implementar as funcionalidades comerciais.
 - Integração com o CRM é **possibilidade futura, por API**, e **não** será implementada agora.
 
-**Execução autorizada em 09/11/2026:** projeto independente criado, migrações e backend aplicados em `feat/backend-supabase`. A autorização expressa da OperumData substituiu aprovações rotineiras por etapa. Consulte [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md) para os recursos efetivos e testes. O restante deste documento registra os contratos de arquitetura; decisões comerciais pendentes permanecem pendentes. Não conectar ao CRM nem publicar em produção.
+**Execução em `feat/backend-supabase` (09/11/2026):** projeto independente criado, seis migrações aplicadas, APIs e painéis implementados em desenvolvimento. A revisão do frontend `0dd6152` foi incorporada nessa branch, preservando o trabalho do Claude. Estado real, testes e limitações em [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md). A autorização permite as operações técnicas rotineiras, mas não custos, CRM ou produção. O envio das páginas públicas ainda será integrado em PR combinado.
 
 ## 1. Escopo: agora × futuro
 
@@ -24,7 +24,7 @@
 - Auth: **cadastro público desabilitado**; contas criadas por convite após aprovação (Edge Function com `service_role` só no servidor). Senha ≥ 12, recuperação por e-mail, SMTP transacional, Site URL e Redirect URLs com `https://comercial.operumdata.com/` (e a URL da prévia em homologação).
 - Todas as tabelas com RLS; `anon` e `public` sem privilégios em tabelas; escrita externa só por Edge Functions.
 - Segredos: chave pública (anon/publishable) no frontend; `service_role` e senhas só em secrets do Supabase. Nada no Git.
-- Migrations versionadas em `supabase/migrations/` neste repositório, aplicadas só com aprovação.
+- Migrations versionadas em `supabase/migrations/` neste repositório (aplicadas pelo Codex no projeto independente).
 
 ## 3. Modelo de dados (a implementar)
 
