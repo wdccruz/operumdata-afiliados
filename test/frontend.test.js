@@ -63,13 +63,15 @@ test('nenhuma página usa percentual de comissão ou níveis', async () => {
   }
 });
 
-test('formulários não pedem CPF, banco ou Pix e não simulam envio', async () => {
+test('formulários não pedem CPF, banco, Pix ou senha e só enviam para enviar.php', async () => {
   const js = await read('js/landing.js');
-  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|localStorage/);
+  assert.doesNotMatch(js, /XMLHttpRequest|localStorage|senha/);
+  assert.deepEqual([...js.matchAll(/fetch\('([^']+)'/g)].map(m => m[1]), ['enviar.php']);
   for (const page of ['index.html', 'afiliados.html']) {
     const html = await read(page);
-    assert.doesNotMatch(html, /id="f-cpf"|id="f-pix"|banc[oá]ri[oa]s?"|agência/i, page);
-    assert.match(html, /Envio ainda não disponível/, page);
+    assert.doesNotMatch(html, /id="f-cpf"|id="f-pix"|id="f-senha"|banc[oá]ri[oa]s?"|agência/i, page);
+    assert.match(html, /mailto:parceiros@operumdata\.com/, page);
+    assert.match(html, /id="f-site"/, page);
   }
 });
 

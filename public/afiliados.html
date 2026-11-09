@@ -11,7 +11,7 @@
 <script src="js/landing.js" defer></script>
 </head>
 <body>
-<div class="env">HOMOLOGAÇÃO · versão para aprovação · o cadastro ainda não envia dados</div>
+<div class="env">HOMOLOGAÇÃO · versão para aprovação · o cadastro é enviado por e-mail à equipe OperumData</div>
 <header><div class="wrap">
   <a class="brand" href="afiliados">operum<span>data</span><small>AFILIADOS</small></a>
   <nav class="nav"><a class="nav-remote" href="./">Prospecção remota</a><a class="hide-sm" href="entrar.html">Entrar</a><a class="btn" href="#cadastro">Quero ser afiliado</a></nav>
@@ -149,23 +149,22 @@
       <p class="privacy">Não pedimos CPF nem dados bancários no cadastro.</p>
     </div>
 
-    <div class="step" id="step2" data-label="Etapa 2 de 2 · Perfil e acesso" hidden>
+    <div class="step" id="step2" data-label="Etapa 2 de 2 · Seu perfil" hidden>
       <label for="f-perfil">Perfil profissional</label>
       <select id="f-perfil" required data-rule="req"><option value="">Selecione</option><option>Representante comercial</option><option>Consultor</option><option>Contador</option><option>Corretor</option><option>Prestador de serviços para empresas</option><option>Empresário</option><option>Profissional autônomo</option><option>Outro</option></select>
       <fieldset class="chips" id="f-setores" data-rule="chips" data-msg="Escolha ao menos um setor.">
         <legend>Setores em que você tem contatos</legend>
         <label><input type="checkbox" id="s1">Energia</label><label><input type="checkbox" id="s2">Hotelaria</label><label><input type="checkbox" id="s3">Confecção</label><label><input type="checkbox" id="s4">Construção civil</label><label><input type="checkbox" id="s5">Oficinas</label><label><input type="checkbox" id="s6">Indústrias</label><label><input type="checkbox" id="s7">Outros</label>
       </fieldset>
-      <label for="f-senha">Crie sua senha</label>
-      <div class="pw"><input type="password" id="f-senha" autocomplete="new-password" required data-rule="senha" aria-describedby="senha-hint"><button type="button" id="btn-pw" aria-controls="f-senha">Mostrar</button></div>
-      <div class="privacy" id="senha-hint">Use 12 ou mais caracteres.</div>
       <label class="check"><input type="checkbox" id="f-termos" data-rule="check"><span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Participação</a></span></label>
       <label class="check"><input type="checkbox" id="f-priv" data-rule="check"><span>Estou ciente do <a href="privacidade.html" target="_blank" rel="noopener">Aviso de Privacidade</a></span></label>
+      <div class="hp" aria-hidden="true"><label for="f-site">Não preencha</label><input type="text" id="f-site" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary" type="submit" id="btn-send">Enviar meu cadastro</button>
       <button class="back" type="button" id="btn-back">← Voltar</button>
     </div>
 
-    <div class="pending-api" id="pending-api" role="status" aria-live="polite"><b>Envio ainda não disponível.</b> Esta versão é para aprovação do frontend. Nenhum dado foi enviado ou armazenado; o envio será habilitado após a integração com o sistema.</div>
+    <div class="pending-api" id="pending-api" role="status" aria-live="polite" tabindex="-1"></div>
+    <p class="privacy contato">Dúvidas: <a href="mailto:parceiros@operumdata.com">parceiros@operumdata.com</a></p>
   </form>
 </div></section>
 
@@ -192,7 +191,7 @@
 <footer><div class="wrap">
   <strong>OperumData Afiliados</strong>
   <nav><a href="./">Prospecção remota</a><a href="termos.html" target="_blank" rel="noopener">Termos de Participação</a><a href="privacidade.html" target="_blank" rel="noopener">Aviso de Privacidade</a><a href="https://operumdata.com/" target="_blank" rel="noopener">Site institucional</a><a href="https://www.facebook.com/operumdata/" target="_blank" rel="noopener">Facebook</a></nav>
-  <div>Ambiente de homologação. Nenhum cadastro ou pagamento real é processado.</div>
+  <div>Ambiente de homologação. Os dados do formulário vão por e-mail para a equipe OperumData; nenhum pagamento é processado.</div>
 </div></footer>
 <div class="sticky off" id="sticky"><a class="btn btn-primary" href="#cadastro">Quero ser afiliado</a></div>
 

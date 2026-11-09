@@ -1,5 +1,6 @@
 // OperumData Afiliados · landing e página de prospecção remota (frontend v2).
-// Os formulários NÃO enviam nem armazenam dados: o envio depende da integração futura com o backend.
+// Provisório (pedido de 09/11/2026): o formulário envia por e-mail para parceiros@operumdata.com via enviar.php.
+// Nada é armazenado no navegador nem no servidor. Senha não é pedida nem enviada.
 // O tipo de cadastro vem de form[data-tipo]: afiliado_indicador ou candidato_prospector_remoto.
 (() => {
   // Origem da campanha: guarda só os parâmetros UTM na sessão, para anexar ao cadastro quando o envio existir.
@@ -21,7 +22,6 @@
     email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Confira o e-mail. Exemplo: nome@email.com',
     whats: v => /^\d{10,11}$/.test(v.replace(/\D/g, '')) || 'Informe o WhatsApp com DDD. Exemplo: (11) 98765-4321',
     req: v => !!v.trim() || 'Preencha este campo.',
-    senha: v => v.length >= 12 || 'Use 12 ou mais caracteres.',
     check: (v, el) => el.checked || 'Marque para continuar.',
   };
   function setError(el, text) {
@@ -66,11 +66,43 @@
   }
   $('btn-next').addEventListener('click', () => { if (validStep('step1')) go(2); });
   $('btn-back').addEventListener('click', () => go(1));
-  $('btn-pw')?.addEventListener('click', e => { const p = $('f-senha'); const show = p.type === 'password'; p.type = show ? 'text' : 'password'; e.target.textContent = show ? 'Ocultar' : 'Mostrar'; });
-  form.addEventListener('submit', e => {
+  const val = id => ($(id)?.value || '').trim();
+  function dados() {
+    let origem = {};
+    try { origem = JSON.parse(sessionStorage.getItem('od.origem') || '{}'); } catch { /* sem origem */ }
+    const d = {
+      tipo: form.dataset.tipo, nome: val('f-nome'), email: val('f-email'), whatsapp: val('f-whats').replace(/\D/g, ''),
+      cidade: val('f-cidade'), uf: val('f-uf'), site_url: val('f-site'), origem, pagina: location.pathname, aceite: true,
+    };
+    if (d.tipo === 'candidato_prospector_remoto') {
+      Object.assign(d, { experiencia: val('f-experiencia'), tempo: val('f-tempo'), disponibilidade: val('f-disp'),
+        equipamento: form.querySelector('input[name=equip]:checked')?.value || '' });
+    } else {
+      Object.assign(d, { perfil: val('f-perfil'),
+        setores: [...form.querySelectorAll('#f-setores input:checked')].map(i => i.parentElement.textContent.trim()) });
+    }
+    return d;
+  }
+  const status = $('pending-api');
+  function aviso(tipo, html) { status.className = 'pending-api show ' + tipo; status.innerHTML = html; }
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!validStep('step2')) return;
-    $('pending-api').classList.add('show');
+    const btn = $('btn-send'), rotulo = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    try {
+      const r = await fetch('enviar.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados()) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.ok) throw new Error(j.erro || String(r.status));
+      form.querySelectorAll('.step').forEach(s => { s.hidden = true; });
+      $('step-label').textContent = 'Recebido';
+      aviso('ok', '<b>Recebemos seus dados.</b> A equipe OperumData vai analisar e responder pelo WhatsApp ou e-mail informado.');
+      status.focus?.();
+    } catch (err) {
+      const limite = String(err.message) === 'limite';
+      aviso('erro', '<b>' + (limite ? 'Muitos envios seguidos.' : 'Não foi possível enviar agora.') + '</b> Tente de novo em alguns minutos ou escreva para <a href="mailto:parceiros@operumdata.com">parceiros@operumdata.com</a>.');
+      btn.disabled = false; btn.textContent = rotulo;
+    }
   });
   // Link para uma seção recolhida (ex.: condições da parceria) abre o bloco.
   document.addEventListener('click', e => {

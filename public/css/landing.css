@@ -101,6 +101,10 @@ form .btn-primary{width:100%;margin-top:18px}
 .privacy{font-size:13px;color:var(--muted);margin:10px 0 0}
 .pending-api{display:none;margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:#F3F4F6;border:1px solid var(--line);font-size:14px;color:var(--text)}
 .pending-api.show{display:block}
+.pending-api.ok{background:#ECFDF3;border-color:#A6F4C5}
+.pending-api.erro{background:#FEF3F2;border-color:#FECDCA}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.contato{margin-top:12px}
 details{border-bottom:1px solid var(--line);padding:12px 0}
 summary{font-weight:700;cursor:pointer;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:12px}
 summary::-webkit-details-marker{display:none}

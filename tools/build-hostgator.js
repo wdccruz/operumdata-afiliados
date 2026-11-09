@@ -15,7 +15,7 @@ const pub = join(repo, 'public');
 // Somente o que é publicado. O protótipo antigo (prototipo.html, app.js, demo.js, style.css, demo.css) fica de fora.
 export const PUBLIC_FILES = [
   '.htaccess', '404.html', 'robots.txt',
-  'index.html', 'afiliados.html', 'termos.html', 'privacidade.html',
+  'index.html', 'afiliados.html', 'termos.html', 'privacidade.html', 'enviar.php',
   'prospeccao-remota.html', 'entrar.html',
   'css/landing.css', 'js/landing.js'
 ];

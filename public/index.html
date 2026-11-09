@@ -11,7 +11,7 @@
 <script src="js/landing.js" defer></script>
 </head>
 <body>
-<div class="env">HOMOLOGAÇÃO · versão para aprovação · a candidatura ainda não envia dados</div>
+<div class="env">HOMOLOGAÇÃO · versão para aprovação · a candidatura é enviada por e-mail à equipe OperumData</div>
 <header><div class="wrap">
   <a class="brand" href="./">operum<span>data</span><small>PARCEIROS</small></a>
   <nav class="nav"><a class="hide-sm" href="afiliados">Programa de afiliados</a><a class="btn" href="#candidatura">Quero me candidatar</a></nav>
@@ -102,11 +102,13 @@
         <label><input type="radio" name="equip" value="sim">Sim</label><label><input type="radio" name="equip" value="nao">Ainda não</label>
       </fieldset>
       <label class="check"><input type="checkbox" id="f-aceite" data-rule="check"><span>Li e aceito o <a href="privacidade.html" target="_blank" rel="noopener">Aviso de Privacidade</a> e as <a href="#condicoes-parceria">condições da candidatura</a></span></label>
+      <div class="hp" aria-hidden="true"><label for="f-site">Não preencha</label><input type="text" id="f-site" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary" type="submit" id="btn-send">Enviar candidatura</button>
       <button class="back" type="button" id="btn-back">← Voltar</button>
     </div>
 
-    <div class="pending-api" id="pending-api" role="status" aria-live="polite"><b>Envio ainda não disponível.</b> Esta versão é para aprovação do frontend. Nenhum dado foi enviado ou armazenado; o envio será habilitado após a integração com o sistema.</div>
+    <div class="pending-api" id="pending-api" role="status" aria-live="polite" tabindex="-1"></div>
+    <p class="privacy contato">Dúvidas: <a href="mailto:parceiros@operumdata.com">parceiros@operumdata.com</a></p>
   </form>
 </div></section>
 
@@ -140,7 +142,7 @@
 <footer><div class="wrap">
   <strong>OperumData · Prospecção remota</strong>
   <nav><a href="afiliados">Programa de afiliados</a><a href="termos.html" target="_blank" rel="noopener">Termos de Participação</a><a href="privacidade.html" target="_blank" rel="noopener">Aviso de Privacidade</a><a href="https://operumdata.com/" target="_blank" rel="noopener">Site institucional</a></nav>
-  <div>Ambiente de homologação. Nenhum cadastro ou pagamento real é processado.</div>
+  <div>Ambiente de homologação. Os dados do formulário vão por e-mail para a equipe OperumData; nenhum pagamento é processado.</div>
 </div></footer>
 <div class="sticky off" id="sticky"><a class="btn btn-primary" href="#candidatura">Quero me candidatar</a></div>
 
