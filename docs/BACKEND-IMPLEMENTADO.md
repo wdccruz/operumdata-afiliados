@@ -68,7 +68,7 @@ P1–P9 estão registradas em `commercial_settings` como `pending`. P4 bloqueia 
 
 ## Auth e primeiro administrador
 
-Configuração hospedada verificada: cadastro público desabilitado, login anônimo desabilitado, confirmação de e-mail habilitada, senha mínima de 12 caracteres e proteção de troca de senha habilitada. Site URL `http://localhost:3200/painel/`; redirect autorizado `http://localhost:3200/painel/acesso.html`.
+Configuração hospedada verificada: cadastro público desabilitado, login anônimo desabilitado, confirmação de e-mail habilitada, senha mínima de 8 caracteres e proteção de troca de senha habilitada. Site URL `http://localhost:3200/painel/`; redirect autorizado `http://localhost:3200/painel/acesso.html`.
 
 Fluxos de login, logout, senha por convite e recuperação estão implementados com SDK oficial, em bundle local. O SDK mantém a sessão em `sessionStorage`. A entrega de e-mails e o login completo com um administrador real ainda dependem do primeiro e-mail autorizado e da verificação do serviço de envio. SMTP próprio não foi fornecido/configurado. Não foram criadas credenciais reais de usuários fictícios nem enviados convites de teste a pessoas.
 

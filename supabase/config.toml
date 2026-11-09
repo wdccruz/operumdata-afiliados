@@ -17,7 +17,7 @@ site_url = "http://localhost:3200/painel/"
 additional_redirect_urls = ["http://localhost:3200/painel/", "http://localhost:3200/painel/acesso.html"]
 jwt_expiry = 900
 enable_signup = false
-minimum_password_length = 12
+minimum_password_length = 8
 
 [auth.email]
 enable_signup = false
