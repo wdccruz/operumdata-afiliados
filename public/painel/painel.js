@@ -1,4 +1,5 @@
 import {supabase,api,sessionProfile,invoke} from './client.js';
+import {detailsHtml,displayValue} from './presentation.js';
 const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>(Number(v||0)/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
@@ -9,7 +10,7 @@ const columns={users_profile:[['name','Nome'],['role','Permissão'],['active','A
 let profile,view='overview',offset=0,current=[],count=0,saveOperation,toastTimer;
 const lookups=new Map();
 function notice(text,error=false){$('#notice').textContent=text;$('#notice').className=error?'error':'';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#notice').textContent='',8000);}
-function cell(key,value){if(key.endsWith('_cents'))return money(value);if(key.endsWith('_at')||key==='signed_on'||key==='paid_on')return date(value);if(key==='proposed_company')return esc(value?.legal_name);if(key==='summary')return esc(`${value?.count||0} empresas · ${(value?.cities||[]).join(', ')}`);if(typeof value==='boolean')return value?'Sim':'Não';if(key==='status')return `<span class="status ${esc(value)}">${esc(labels[value]||value)}</span>`;if(key.endsWith('_id'))return esc(lookups.get(value)||value);return esc(labels[value]||value||'—');}
+function cell(key,value){if(key.endsWith('_cents'))return money(value);if(key.endsWith('_at')||key==='signed_on'||key==='paid_on')return date(value);if(key==='proposed_company')return esc(value?.legal_name);if(key==='summary')return esc(`${value?.count||0} empresas · ${(value?.cities||[]).join(', ')}`);if(typeof value==='boolean')return value?'Sim':'Não';if(key==='status')return `<span class="status ${esc(value)}">${esc(labels[value]||value)}</span>`;if(key.endsWith('_id'))return esc(lookups.get(value)||value);return esc(labels[value]||displayValue(key,value));}
 const btn=(task,id,text)=>`<button data-task="${task}" data-id="${id}">${text}</button>`;
 function actions(r){const admin=profile.role==='admin',finance=['admin','finance'].includes(profile.role);let html=btn('details',r.id,'Detalhes');
  if(view==='partner_applications'&&admin)html+=btn('decide',r.id,'Analisar / convidar');
@@ -54,7 +55,7 @@ const contactFields=[f('contact_name','Nome do contato autorizado'),f('contact_p
 const mappedCompany=p=>({company:Object.fromEntries(companyFields.map(x=>[x.key,p[x.key]||null])),contact:{name:p.contact_name,position:p.contact_position,phone:p.contact_phone,email:p.contact_email,authorized:p.authorized==='on'}});
 async function task(action,id){const r=current.find(r=>r.id===id),command=(name,params)=>api.command(name,params);
  if(action==='details'){
-  $('#editor-title').textContent='Detalhes do registro';$('#operation').innerHTML='<dl class="details-list">'+Object.entries(r).filter(([k])=>!['created_by','updated_by','archived_at'].includes(k)).map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(typeof v==='object'?JSON.stringify(v):v||'—')}</dd></div>`).join('')+'</dl>';saveOperation=null;$('#editor').showModal();return;
+  $('#editor-title').textContent='Detalhes do registro';$('#operation').innerHTML=detailsHtml(r);saveOperation=null;$('#editor').showModal();return;
  }
  if(action==='decide')openForm('Analisar candidatura',[select('decision','Decisão',statuses(['aprovado','recusado','informacao_pendente'])),reason],async p=>{const result=await api.decide({application_id:id,...p});if(result.invitation_pending)notice(result.invitation_pending);return result;});
  if(action==='partner-status')openForm('Alterar situação do parceiro',[select('status','Nova situação',statuses(['ativo','suspenso','encerrado'])),reason],p=>command('partner_status',{id,...p}));
