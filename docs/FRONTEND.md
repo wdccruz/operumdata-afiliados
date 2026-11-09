@@ -1,5 +1,7 @@
 # Protótipo frontend
 
+> A landing v2 substituiu a página inicial. Este protótipo (áreas de afiliado e administração com dados fictícios) continua disponível em `/prototipo.html`. Para exportar: `node tools/export-frontend.js CAMINHO.html`.
+
 Foco atual: revisão visual e navegação. O navegador utiliza public/demo.js como fonte de dados fictícios. Não há chamadas à API, inicialização de banco ou autenticação real no fluxo do frontend. O backend anterior permanece preservado e fora do trabalho atual.
 
 ## Abrir

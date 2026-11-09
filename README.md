@@ -1,6 +1,6 @@
 # OperumData Afiliados
 
-**Foco atual: frontend.** Para revisar as telas sem API ou banco, execute `npm run preview:frontend` e abra http://localhost:3200. Use os botões de perfis fictícios. Veja [instruções do protótipo](docs/FRONTEND.md). O backend descrito abaixo está preservado para trabalho futuro; o frontend atual usa somente dados locais simulados.
+**Foco atual: frontend v2 (landing de conversão).** Execute `npm run preview:frontend` e abra http://localhost:3200. A landing fica em `public/index.html` (estilos em `public/css/landing.css`, script em `public/js/landing.js`, foto em `public/assets/img/`). O cadastro ainda **não envia nem armazena dados**: o envio depende da integração futura com o backend. O protótipo anterior das áreas de afiliado e administração continua em `/prototipo.html`, com dados fictícios. Especificação completa em [docs/frontend-v2](docs/frontend-v2/). Prévia estática pública: `netlify.toml` publica somente `public/`, sem API nem banco.
 
 Aplicação de **homologação**, com frontend responsivo em português, API Node.js/Express e banco SQLite exclusivo persistente. Repositório privado e independente. GitHub armazena o código; GitHub Pages não executa o backend.
 
