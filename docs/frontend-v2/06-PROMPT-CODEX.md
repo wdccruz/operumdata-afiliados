@@ -32,12 +32,16 @@ SEM implementar banco de dados nem API nova.
    Ela usa percentuais e níveis e será descartada.
 4. Não usar percentuais de comissão, níveis, metas por quantidade, "base de cálculo" ou "competência".
 5. Não simular sucesso fora do modo demo. Nada de persistência fictícia disfarçada de real.
+   O cadastro público NUNCA mostra "recebido/enviado/salvo", nem no modo demo: após validar,
+   exibe "Envio ainda não disponível" (02 §4.3).
 6. Não adicionar frameworks, bundlers, CDNs, Google Fonts, SDK/pixel do Facebook ou TikTok,
    analytics ou cookies de terceiros.
 7. Não alterar operumdata.com, parceiros.operumdata.com, DNS, infraestrutura ou CI de deploy.
 8. Não publicar nem fazer deploy. Não usar afiliados.operumdata.com.
 9. Não pedir CPF, RG, dados bancários ou data de nascimento em nenhum formulário.
-10. Não inventar fatos sobre a OperumData (clientes, países, números). Usar [A CONFIRMAR].
+10. Não inventar fatos sobre a OperumData (clientes, países, números). Usar somente os textos
+    aprovados de 02 §3 (revisão 2). Onde ainda faltar texto (Termos, Aviso de Privacidade,
+    telas internas), usar [A CONFIRMAR] visível só fora de produção.
 
 ## Stack
 - HTML + CSS com variáveis + JavaScript em módulos ES nativos (<script type="module">). Sem build.
@@ -65,8 +69,9 @@ SEM implementar banco de dados nem API nova.
    import() dinâmico quando config.mode==='demo' e environment!=='production', recusando
    hostnames de operumdata.com. Painel "Demo" flutuante (nunca no topo).
 6. Componentes ui/ de 04 §7: recebem dados por parâmetro, não importam data/.
-7. Landing (02 §2–§3): seções na ordem, textos EXATOS da especificação, botão fixo no celular,
-   FAQ com <details>, convite do Facebook (link simples, nova aba, rel="noopener"),
+7. Landing (02 §2–§3, revisão 2): seções na ordem, textos EXATOS de referencia-landing.html,
+   espaçamentos reduzidos da revisão 2, botão fixo no celular,
+   FAQ com <details>, convite do Facebook discreto (botão neutro, link simples, nova aba, rel="noopener"),
    faixa de homologação contendo a palavra HOMOLOGAÇÃO (teste existente depende disso).
    Usar referencia-landing.html como guia visual.
 8. Cadastro (02 §4): duas etapas, validações, estados, UTM anexado, regra de senha vinda de

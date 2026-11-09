@@ -15,115 +15,97 @@ Público: visitante de anúncio (Facebook, Instagram, TikTok), no celular, com a
 
 Roteamento por History API com fallback para `index.html` (o servidor de prévia e o Express precisam devolver `index.html` para essas rotas). Todos os links de navegação são `<a href>` reais, não botões.
 
-**Comportamento do botão principal:** no desktop, rola até a seção de cadastro da própria landing (`#cadastro`). No celular (< 768 px), também rola até `#cadastro`; a rota `/cadastro` existe para anúncios que levam direto ao formulário. As duas usam o mesmo componente de formulário.
+**Comportamento do botão principal:** rola até `#cadastro`. A rota `/cadastro` existe para anúncios que levam direto ao formulário. As duas usam o mesmo componente.
 
 ## 2. Cabeçalho e elementos fixos
 
-- **Faixa de homologação** (somente fora de produção): uma linha, 32 px, fundo `#FFF1EB`, texto `#7C2D12`: "HOMOLOGAÇÃO · dados fictícios · nenhum cadastro é enviado". Precisa conter a palavra `HOMOLOGAÇÃO` (exigida pelo teste existente).
+- **Faixa de homologação** (somente fora de produção): uma linha, fundo `#FFF1EB`, texto `#7C2D12`: "HOMOLOGAÇÃO · versão para aprovação · o cadastro ainda não envia dados". Precisa conter a palavra `HOMOLOGAÇÃO` (exigida pelo teste existente).
 - **Cabeçalho** (56 px, branco, borda inferior `--color-line`): logotipo OperumData Afiliados à esquerda; à direita "Entrar" (link) e, a partir de 768 px, botão "Quero ser afiliado".
 - **Botão fixo no rodapé (celular):** aparece depois que o botão do herói sai da tela e some quando o formulário de cadastro está visível. 56 px, laranja, texto "Quero ser afiliado". Usar `IntersectionObserver`. Respeitar `env(safe-area-inset-bottom)`.
 - **Controles de demonstração:** nunca no topo. Botão flutuante pequeno "Demo" no canto inferior esquerdo, só quando o modo demonstração estiver ativo, abrindo um painel com os perfis fictícios.
 
-## 3. Seções da landing (ordem final)
+## 3. Seções da landing (ordem final, revisão 2 aprovada em 09/11/2026)
 
-A ordem pedida foi mantida, com um ajuste: a seção de cadastro continua na 6ª posição, mas o botão fixo e as âncoras garantem que o formulário esteja sempre a um toque.
+Diretrizes da revisão do Wagner: preservar a direção visual (fundo claro, preto, laranja), reduzir espaços verticais, não repetir informações, reforçar o benefício para o empresário e manter textos curtos. A referência `referencia-landing.html` é a fonte visual e de texto: **usar os textos exatamente como estão nela**.
+
+Ordem: 1 Oportunidade · 2 Quanto você ganha · 3 O que você leva ao empresário (com empresas procuradas) · 4 Como funciona + Quem é a OperumData + Facebook · 5 Cadastro · 6 Perguntas frequentes · Rodapé.
+
+Espaçamento: seções com 40 px de respiro vertical no celular e 64 px no desktop; herói 22/32 px no celular.
 
 ### Seção 1 — Oportunidade (herói)
 
-Meta: no celular 390 × 844 **e** 360 × 640, título, "R$ 300" e botão principal visíveis sem rolar.
+Meta: em 360 × 640 e 390 × 844, título, "R$ 300" e botão principal visíveis sem rolar.
 
 ```
 [sobretítulo]  PROGRAMA DE INDICAÇÃO OPERUMDATA
 [H1]           Conhece donos de empresas?
                Ganhe até R$ 300 por empresa que fechar contrato.
-[apoio]        Você apresenta a empresa. A OperumData cuida da negociação.
-               Você recebe quando o contrato é assinado.
-[faixa]        R$ 50 Indicação · R$ 150 Apresentação · R$ 300 Prospecção completa
+[apoio]        Apresente ao empresário uma oportunidade de participação remunerada em projetos
+               internacionais de inteligência artificial e robótica. A OperumData avalia e formaliza.
+[faixa]        R$ 50 Indicação · R$ 150 Apresentação · R$ 300 Prospecção completa   (só no celular)
 [botão]        QUERO SER AFILIADO
-[link]         Ver quanto posso ganhar ↓
-[selos]        ✓ Você não vende produto  ✓ Sem custo de adesão  ✓ Cadastro sujeito à aprovação
+[selos]        ✓ Sem custo de adesão  ✓ Sem experiência em vendas  ✓ Cadastro sujeito à aprovação
 ```
 
-- No desktop, coluna direita com um cartão-resumo dos três valores (sem rotação, sem gradiente) ou foto real autorizada.
+- Desktop: coluna direita com cartão "Comissão por empresa" (R$ 50 / R$ 150 / R$ 300); a faixa de valores some.
 - "R$ 300" em `#FF5A1F`, peso 800.
 
 ### Seção 2 — Quanto você ganha (`#ganhos`)
 
-Título: **Quanto você ganha por empresa**
-Apoio: "O valor depende da sua participação. Cada empresa gera uma única comissão."
+Título: **Quanto você ganha por empresa** · Apoio: "O valor depende da sua participação no negócio."
 
-Três cartões, empilhados no celular, lado a lado no desktop. O de R$ 300 com selo "Maior comissão" e borda laranja.
-
-| | R$ 50 | R$ 150 | R$ 300 |
+| | R$ 50 · Indicação | R$ 150 · Apresentação e qualificação | R$ 300 · Prospecção completa (selo "Maior comissão") |
 |---|---|---|---|
-| Nome | Indicação | Apresentação e qualificação | Prospecção completa |
-| Frase | Você indica. A OperumData negocia. | Você apresenta e qualifica. | Você conduz do início ao fim. |
-| O que você faz | Passa o contato de um responsável pela empresa, com a autorização dele. | Apresenta o projeto ao responsável, confirma o interesse e as informações da empresa e encaminha para formalização. | Prospecta, visita a empresa, qualifica, conduz a negociação autorizada pela OperumData e acompanha até o início das gravações. |
-| Quando recebe | Após contrato assinado e indicação validada. | Após contrato assinado e participação validada. | R$ 150 na contratação validada + R$ 150 no início das gravações. |
+| Texto | Você passa o contato autorizado de um responsável pela empresa. A OperumData negocia. | Você apresenta o projeto, qualifica a empresa e encaminha para formalização. | Você prospecta, visita, qualifica, conduz a negociação autorizada e acompanha até o início das gravações. |
+| Pagamento | após contrato assinado e indicação validada. | após contrato assinado e participação validada. | R$ 150 na contratação validada + R$ 150 no início efetivo das gravações. |
 
-Nota abaixo dos cartões (14 px, `--color-text-2`):
-"As comissões não se somam. O valor final é definido pela atuação comprovada e validada pela OperumData. Sem custo de adesão."
+Nota: "Os valores não se somam: cada empresa gera uma única comissão, definida pela atuação validada pela OperumData."
 
-Botão ao final: "Quero ser afiliado".
+### Seção 3 — O que você leva ao empresário (`#empresario`)
 
-### Seção 3 — Como funciona (`#como-funciona`)
+Objetivo: o afiliado entende que apresenta uma **oportunidade de participação remunerada**, não uma venda nem um pedido de informações.
 
-Quatro passos numerados, linha vertical no celular, horizontal no desktop:
+- Título: **O que você leva ao empresário** · Apoio: "Uma oportunidade de participação remunerada, não uma venda."
+- Destaque (borda esquerda laranja): "As empresas participantes podem receber remuneração por atividades profissionais gravadas e aprovadas em projetos internacionais de inteligência artificial e robótica." + linha menor "A participação depende de avaliação e autorização."
+- Subtítulo **Empresas que procuramos**: "Empresas comuns, com trabalho real no dia a dia. De preferência com 5 ou mais profissionais."
+- Grade compacta (2 colunas no celular, 3 no desktop), ícone + nome: Energia e utilidade pública · Hotelaria e serviços operacionais · Confecção e vestuário · Construção civil · Oficinas e manutenção · Indústrias.
 
-1. **Cadastre-se** — Leva poucos minutos e não tem custo.
-2. **Seja aprovado** — Nossa equipe analisa seu perfil e retorna pelo WhatsApp ou e-mail. `[A CONFIRMAR: prazo]`
-3. **Indique empresas** — Registre as empresas pelo seu painel e escolha como vai participar.
-4. **Acompanhe e receba** — Veja cada etapa da negociação e o status das suas comissões.
+### Seção 4 — Como funciona + Quem é a OperumData (`#como-funciona`, `#sobre`)
 
-Bloco de apoio (fundo `--color-bg-alt`), duas colunas no desktop:
-- **Quem pode participar:** Pessoas com bom relacionamento com donos e gestores de empresas: representantes comerciais, consultores, contadores, corretores, prestadores de serviço e empreendedores. `[A CONFIRMAR: idade mínima, PF/PJ]`
-- **O que a empresa recebe:** `[A CONFIRMAR com a OperumData — texto curto de 1 a 2 frases]`
+Duas colunas no desktop, empilhadas no celular.
 
-### Seção 4 — Empresas que procuramos (`#empresas`)
+**Como funciona** (4 passos, uma linha cada): Cadastre-se — Gratuito e rápido · Seja aprovado — A equipe analisa seu perfil · Indique empresas — Pelo seu painel de afiliado · Acompanhe e receba — Cada etapa e cada comissão.
 
-Título: **Empresas comuns, com trabalho real acontecendo todo dia**
-Apoio: "Não precisa ser empresa de tecnologia. Procuramos negócios estruturados, de preferência com 5 ou mais profissionais."
+**Quem é a OperumData:** "A OperumData é uma empresa brasileira que conecta operações reais de trabalho a projetos internacionais de inteligência artificial e robótica. Identificamos empresas, organizamos oportunidades e acompanhamos operações em campo." + link "Conheça o site institucional" → `https://operumdata.com/`.
 
-Grade de 6 cartões (2 colunas no celular, 3 no desktop), cada um com ícone de traço e nome:
-- Energia e serviços de utilidade pública
-- Hotelaria e serviços operacionais
-- Confecção e vestuário
-- Construção civil
-- Oficinas e manutenção
-- Indústrias
+**Convite do Facebook** (discreto, abaixo do texto, separado por linha fina): ícone do Facebook, "Acompanhe novidades dos projetos na página oficial." e botão neutro (branco, borda cinza, texto escuro, 15 px) **Seguir OperumData no Facebook** → `https://www.facebook.com/operumdata/` em nova aba (`rel="noopener"`).
+- Nunca laranja e nunca maior que o botão principal.
+- Sem SDK, pixel ou plugin de curtir; nunca afirmar que a pessoa curtiu ou segue; o cadastro não depende do clique.
 
-### Seção 5 — Quem é a OperumData (`#sobre`)
+"Quem pode participar" **não** aparece nesta seção; fica só no FAQ e no selo "Sem experiência em vendas" do herói.
 
-- Texto curto (até 60 palavras) sobre a atuação em projetos internacionais de IA e robótica. `[A CONFIRMAR: fatos e números autorizados]`. Não inventar clientes, países ou números.
-- Link "Conheça a OperumData" → `https://operumdata.com/` (`target="_blank" rel="noopener"`).
-- **Convite do Facebook** (cartão separado, fundo branco, borda):
-  - Título: "Acompanhe a OperumData no Facebook"
-  - Texto: "Veja novidades dos projetos e do programa de indicação."
-  - Botão contornado: **SEGUIR OPERUMDATA NO FACEBOOK** → `https://www.facebook.com/operumdata/` em nova aba (`rel="noopener"`).
-  - Regras: link direto simples, sem SDK do Facebook, sem pixel, sem plugin de curtir. Nunca exibir "Você curtiu" ou "Obrigado por seguir" após o clique. O cadastro **não** depende do clique.
+### Seção 5 — Cadastro (`#cadastro`)
 
-### Seção 6 — Cadastro (`#cadastro`)
+Título: **Faça seu cadastro** · Apoio: "Gratuito. Você recebe o retorno após a análise." Formulário do item 4.
 
-Formulário completo descrito no item 4. Título: **Faça seu cadastro** — Apoio: "Sem custo. Leva poucos minutos. Você recebe o retorno após a análise."
+### Seção 6 — Perguntas frequentes (`#duvidas`)
 
-### Seção 7 — Perguntas frequentes (`#duvidas`)
+Acordeão `<details>/<summary>`, todas fechadas por padrão. Textos exatos:
 
-Acordeão com `<details>/<summary>` (acessível sem JavaScript). Máximo de 8 perguntas, respostas de até 3 linhas.
-
-1. **Preciso vender algum produto?** Não. Você indica empresas ou participa da prospecção. A OperumData apresenta o projeto e formaliza o contrato.
-2. **Tem algum custo para participar?** Não. O cadastro é gratuito e não há mensalidade.
-3. **Quanto e quando eu recebo?** R$ 50, R$ 150 ou R$ 300 por empresa, conforme sua participação. O pagamento acontece depois do contrato assinado e validado; no R$ 300, metade na contratação e metade no início das gravações. `[A CONFIRMAR: prazo e forma de pagamento]`
-4. **Quem pode participar?** `[A CONFIRMAR]`
-5. **Preciso ter CNPJ?** `[A CONFIRMAR]`
-6. **E se outra pessoa já tiver indicado a mesma empresa?** `[A CONFIRMAR: regra de precedência]`
-7. **Como acompanho minhas indicações?** Pelo seu painel, com a etapa de cada empresa e a situação de cada comissão.
-8. **Participar gera vínculo de emprego?** `[A CONFIRMAR: texto jurídico]`
-
-Ao final: "Ainda tem dúvidas? Leia os Termos de Participação." + botão "Quero ser afiliado".
+1. **Preciso vender algum produto?** Não. Você apresenta uma oportunidade de participação remunerada. A OperumData avalia a empresa e formaliza o contrato.
+2. **Quanto recebo em cada modalidade?**
+   - R$ 50 · Indicação: após contrato assinado e indicação validada.
+   - R$ 150 · Apresentação e qualificação: após contrato assinado e participação validada.
+   - R$ 300 · Prospecção completa: R$ 150 na contratação validada. Os outros R$ 150 só são pagos quando as gravações começarem de fato.
+   - Os valores não se somam: cada empresa gera uma única comissão.
+3. **Quem pode participar?** Pessoas com relacionamento com empresários ou capacidade de identificar e apresentar empresas. Não é necessário ter experiência prévia em vendas. O cadastro está sujeito à aprovação da OperumData.
+4. **E se a empresa já tiver sido indicada?** A OperumData verifica oportunidades já cadastradas ou em negociação. A atribuição da indicação será analisada conforme as regras do programa, evitando duplicidades.
+5. **Tem algum custo para participar?** Não. O cadastro é gratuito.
+6. **Como acompanho minhas indicações?** Pelo painel do afiliado, liberado após a aprovação, com a etapa de cada empresa e a situação de cada comissão.
 
 ### Rodapé
 
-OperumData Afiliados · links: Termos de Participação, Aviso de Privacidade, Site institucional, Facebook · "© OperumData". Em homologação: "Ambiente de homologação. Nenhum cadastro ou pagamento real é processado."
+OperumData Afiliados · links: Termos de Participação, Aviso de Privacidade, Site institucional, Facebook. Em homologação: "Ambiente de homologação. Nenhum cadastro ou pagamento real é processado."
 
 ## 4. Formulário de cadastro
 
@@ -141,21 +123,21 @@ Um único componente com duas etapas visíveis ("Etapa 1 de 2"), sem recarregar 
 | Cidade | `text`, `autocomplete="address-level2"` | obrigatório, até 80 | |
 | UF | `select` com 27 UFs | obrigatório | |
 
-Botão: **Continuar →**
+Botão: **Continuar**
 
 **Etapa 2 — Perfil e acesso**
 
 | Campo | Tipo | Validação | Observação |
 |---|---|---|---|
 | Perfil profissional | `select` | obrigatório | Representante comercial · Consultor · Contador · Corretor · Prestador de serviços para empresas · Empresário · Profissional autônomo · Outro (abre campo de texto, até 60) |
-| Setores em que você tem relacionamento | chips de múltipla seleção (checkbox estilizado) | ao menos 1 | 6 segmentos da landing + "Outros setores" |
+| Setores em que você tem contatos | chips de múltipla seleção (checkbox estilizado) | ao menos 1 | 6 segmentos da landing + "Outros setores" |
 | Crie sua senha | `password`, `autocomplete="new-password"` | regra exibida vem de `config.passwordPolicy` | botão mostrar/ocultar; indicador simples da regra atendida |
 | Termos | checkbox | obrigatório | "Li e aceito os [Termos de Participação]" (link abre em nova aba) |
 | Privacidade | checkbox | obrigatório | "Estou ciente do [Aviso de Privacidade]" |
 
 Botão: **Enviar meu cadastro** · link "← Voltar".
 
-Abaixo do botão: "Não pedimos CPF nem dados bancários agora. Eles serão solicitados apenas se você for aprovado e tiver comissões a receber."
+Abaixo do botão da etapa 1: "Não pedimos CPF nem dados bancários no cadastro."
 
 **Não solicitar** CPF, RG, dados bancários, data de nascimento ou endereço completo.
 
@@ -179,8 +161,9 @@ Abaixo do botão: "Não pedimos CPF nem dados bancários agora. Eles serão soli
 | Validação do servidor | mapear `fieldErrors` para os campos |
 | Muitas tentativas (429) | "Muitas tentativas. Aguarde alguns minutos e tente novamente." |
 | Falha de rede / 5xx | "Não conseguimos enviar agora. Seus dados continuam aqui. Tente novamente." + botão "Tentar novamente" |
-| **Backend ainda não disponível** (modo `api` sem endpoint) | "O cadastro ainda não está aberto. Esta é uma versão de homologação." Nunca simular sucesso. |
-| **Modo demonstração** | Sucesso com faixa "SIMULAÇÃO: nenhum dado foi enviado ou salvo." |
+| **Envio ainda não disponível** (nesta fase, em **qualquer** modo, inclusive demo) | Depois de validar os campos, mostrar no próprio formulário: "**Envio ainda não disponível.** Esta versão é para aprovação do frontend. Nenhum dado foi enviado ou armazenado; o envio será habilitado após a integração com o sistema." Os dados digitados continuam no formulário. |
+
+**Regra da revisão 2:** nenhum modo pode mostrar que a inscrição foi recebida ou armazenada antes da integração real. A tela `/cadastro/enviado` é construída, mas só é exibida após resposta de sucesso do backend; no modo demo ela pode ser vista apenas pelo painel "Demo", com a faixa "PRÉVIA DE TELA · nenhum cadastro foi recebido".
 
 ### 4.4 Origem de campanha (UTM)
 

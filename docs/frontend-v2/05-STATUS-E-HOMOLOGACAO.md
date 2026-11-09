@@ -12,7 +12,7 @@ Legenda: **Pronto** = funciona de verdade só com frontend. **Simulado** = funci
 | Rotas com URL própria e botão voltar | ✅ | | |
 | Captura de UTM na sessão | ✅ (captura e anexa ao envio) | | gravação no banco |
 | Validação de campos do cadastro | ✅ | | validação definitiva no servidor |
-| Envio do cadastro | | ✅ | ✅ `enviarCandidatura` |
+| Envio do cadastro | validação e estado "Envio ainda não disponível" ✅ | ❌ não simula recebimento | ✅ `enviarCandidatura` |
 | Login / sessão / sair | | ✅ (perfis fictícios) | ✅ autenticação real |
 | Recuperação de senha | | | ✅ (tela "em breve") |
 | Painel do afiliado (resumo, listas, detalhe) | layout ✅ | ✅ | ✅ dados reais e isolamento |
@@ -34,7 +34,7 @@ Nenhuma tela pode exibir "concluído", "salvo", "enviado" ou "pago" fora do modo
 - Proteção extra: se `location.hostname` for `afiliados.operumdata.com` ou `operumdata.com`/subdomínios, o modo demo é recusado mesmo com config errada.
 - Nomes de empresas terminam em "· fictícia"; e-mails em `.test`; telefones `(00) 0000-0000`.
 - Estado em memória por padrão; `localStorage` apenas com chave versionada `od.demo.v2` e botão "Restaurar demonstração".
-- Toda confirmação mostra "SIMULAÇÃO: nenhum dado foi enviado ou salvo".
+- Toda confirmação nas áreas internas mostra "SIMULAÇÃO: nenhum dado foi enviado ou salvo". O cadastro público nunca simula recebimento (02 §4.3).
 - Perfis no painel Demo: Visitante · Afiliado em análise · Afiliado aprovado (com indicações em todas as etapas, incluindo R$ 300 com uma parcela paga e outra prevista) · Afiliado suspenso · Administração.
 - Fixtures devem cobrir: lista vazia, duplicidade possível, modalidade validada diferente da pretendida, indicação encerrada, parcela cancelada.
 
@@ -50,14 +50,18 @@ Nenhuma tela pode exibir "concluído", "salvo", "enviado" ou "pago" fora do modo
 - [ ] Nenhuma frase de ganho garantido; todas as menções de valor vêm com a condição.
 - [ ] Botão fixo aparece após o herói e some quando o formulário está visível.
 - [ ] Link do Facebook abre `https://www.facebook.com/operumdata/` em nova aba; nenhum texto afirma que a pessoa curtiu ou segue; cadastro funciona sem clicar nele.
-- [ ] Marcadores `[A CONFIRMAR]` visíveis apenas fora de produção e listados no relatório da entrega.
+- [ ] Nenhum `[A CONFIRMAR]` na landing; textos idênticos a `referencia-landing.html` (revisão 2).
+- [ ] "Quem pode participar" aparece só no FAQ (sem repetição na página).
+- [ ] Bloco "O que você leva ao empresário" presente logo após os valores.
+- [ ] Convite do Facebook com botão neutro, menor que o botão principal e nunca laranja.
+- [ ] FAQ diferencia R$ 50, R$ 150 e R$ 300 e diz que a 2ª parcela do R$ 300 depende do início efetivo das gravações.
 
 ### 3.2 Cadastro
 
 - [ ] Campos exatamente os especificados; nenhum CPF, RG, banco ou data de nascimento.
 - [ ] Teclados corretos no celular (e-mail, numérico no WhatsApp).
 - [ ] Erros por campo, resumo de erros e foco no primeiro erro; valores preservados ao voltar e após falha.
-- [ ] Estados: enviando, sucesso (demo, com selo), erro de rede, 409, 429, `BACKEND_PENDENTE`.
+- [ ] Estados: enviando, erro de rede, 409, 429 e "Envio ainda não disponível". Em nenhum modo aparece mensagem de cadastro recebido ou salvo.
 - [ ] Com `?utm_source=facebook&utm_campaign=teste`, o objeto `origem` enviado contém esses valores; parâmetros fora da lista são ignorados; nada é gravado em cookie.
 - [ ] Senha não aparece em `localStorage`, `sessionStorage`, URL ou console.
 

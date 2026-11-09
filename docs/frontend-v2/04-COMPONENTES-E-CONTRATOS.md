@@ -79,7 +79,7 @@ window.OPERUM_CONFIG = Object.freeze({
 
 Regras:
 - `main.js` importa `demo/demo-client.js` **dinamicamente** só se `mode === 'demo'` e `environment !== 'production'`. Se a combinação for inválida, mostrar erro de configuração e não carregar a demo.
-- Em modo demo: faixa de homologação, botão flutuante "Demo" e o selo "SIMULAÇÃO" em toda confirmação de envio.
+- Em modo demo: faixa de homologação, botão flutuante "Demo" e o selo "SIMULAÇÃO" nas ações das áreas internas. **O envio do cadastro público nunca simula recebimento**, nem em modo demo (ver 02 §4.3).
 - `tools/preview-frontend.js` passa a servir `config.js` com `environment: 'development', mode: 'demo'` e precisa servir as subpastas com lista de extensões permitidas e proteção contra `..` (path traversal), além de devolver `index.html` para rotas sem extensão.
 - O Express em `src/app.js` já serve `public/`. Não alterar sua lógica de API. Se for preciso o fallback de rotas para `index.html`, isso é uma mudança mínima e isolada, com teste.
 

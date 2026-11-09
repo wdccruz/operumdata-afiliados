@@ -88,6 +88,8 @@ Analisado na branch `feat/frontend-demo` (commit `27a05a4`): `public/index.html`
 
 ### 2.4 Texto recomendado para a primeira dobra
 
+> Versão final aprovada na revisão 2: ver 02 §3, Seção 1. O bloco abaixo é a proposta original, mantida como histórico.
+
 ```
 PROGRAMA DE INDICAÇÃO OPERUMDATA                       ← sobretítulo
 
@@ -168,7 +170,7 @@ O laranja `#FF5A1F` com texto branco tem contraste **3,1:1**. Isso só atende WC
 
 ## 4. Pendências de negócio que afetam textos e telas
 
-Estas respostas precisam vir da OperumData. Enquanto não chegarem, o Codex usa o marcador `[A CONFIRMAR]` visível apenas em homologação.
+**Atualização 09/11/2026 (revisão 2):** a OperumData forneceu os textos de "O que a empresa recebe", "Quem pode participar", "Empresas já indicadas" e "Quem é a OperumData" (ver 02 §3). A landing não tem mais nenhum `[A CONFIRMAR]`. Os itens 1, 2 (parcialmente), 4 e 8 abaixo estão resolvidos para a landing; os demais continuam pendentes e afetam apenas telas internas, Termos e Aviso de Privacidade.
 
 1. **O que a empresa indicada recebe ou paga ao participar dos projetos?** (essencial para a abordagem do afiliado)
 2. **Regra de duplicidade:** se duas pessoas indicarem a mesma empresa, qual indicação vale? Existe prazo de validade da indicação?
