@@ -24,6 +24,8 @@ ErrorDocument 404 /404.html
 
   # 2. Bloqueia arquivos ocultos (.env, .git...), exceto .well-known (validação do SSL)
   RewriteRule (^|/)\.(?!well-known/) - [F,L]
+  # Candidatura de teste do painel grava no banco de teste: fora do ar até a homologação
+  RewriteRule ^painel/candidatura\.(html|js)$ - [F,L]
 
   # 3. Endereços antigos e com extensão → endereço oficial
   RewriteCond %{THE_REQUEST} \s/+afiliados(\.html|/)[\s?]
