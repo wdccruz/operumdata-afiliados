@@ -1,0 +1,5 @@
+# Apply these headers at the eventual panel host; do not publish yet.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://owpkzqobxzsutsbhjrfp.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
