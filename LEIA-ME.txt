@@ -1,0 +1,2 @@
+Prévia estática do frontend da OperumData Afiliados (somente arquivos visuais de public/, sem backend e sem banco).
+Gerada a partir de feat/frontend-conversao, commit f62c7c0. Não editar aqui.
