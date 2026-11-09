@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Referência visual · OperumData Afiliados</title>
+<!-- REFERÊNCIA VISUAL ESTÁTICA. Não é a implementação. Textos [A CONFIRMAR] dependem da OperumData. -->
+<style>
+:root{
+  --bg:#FFFFFF;--bg-alt:#F7F7F5;--text:#111418;--text-2:#4B5563;--muted:#6B7280;--line:#E5E7EB;
+  --accent:#FF5A1F;--accent-strong:#C2410C;--accent-soft:#FFF1EB;--success:#15803D;
+  --r:12px;--r-sm:10px;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);
+  -webkit-text-size-adjust:100%;
+}
+*{box-sizing:border-box}body{margin:0;line-height:1.55;font-size:16px}
+a{color:var(--accent-strong)}img{max-width:100%}
+:focus-visible{outline:3px solid var(--accent-strong);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+.env{background:var(--accent-soft);color:#7C2D12;font-size:12px;text-align:center;padding:6px 16px;font-weight:600;letter-spacing:.02em}
+header{border-bottom:1px solid var(--line);background:#fff}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.brand span{font-weight:400}.brand small{font-size:11px;font-weight:700;color:var(--accent-strong);letter-spacing:.12em;margin-left:6px}
+.nav{display:flex;gap:16px;align-items:center}.nav a{font-weight:600;text-decoration:none;color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:var(--r-sm);font:inherit;font-weight:700;font-size:18px;text-decoration:none;border:0;cursor:pointer}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#F04A10}
+.btn-outline{background:#fff;color:var(--text);border:1.5px solid var(--text);font-size:16px;min-height:48px}
+.nav .btn{display:none;min-height:40px;font-size:15px;padding:0 16px;background:var(--text);color:#fff}
+section{padding:56px 0}
+.alt{background:var(--bg-alt)}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-strong);margin:0 0 12px}
+h1{font-size:32px;line-height:1.15;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}
+h1 .q{display:block;color:var(--text-2);font-weight:700;font-size:.72em;margin-bottom:6px}
+h1 .v{color:var(--accent)}
+h2{font-size:26px;line-height:1.2;letter-spacing:-.01em;margin:0 0 8px}
+.lead{font-size:17px;color:var(--text-2);margin:0 0 20px;max-width:620px}
+.hero{padding:28px 0 40px}
+.strip{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px;padding:0;list-style:none}
+.strip li{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--text-2);background:#fff}
+.strip b{color:var(--text)}
+.cta-row{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.cta-row .btn-primary{width:100%}
+.ghost-link{font-weight:600;font-size:15px}
+.seals{display:flex;flex-wrap:wrap;gap:6px 16px;margin:18px 0 0;padding:0;list-style:none;font-size:14px;color:var(--text-2)}
+.seals li::before{content:"✓ ";color:var(--success);font-weight:800}
+.hero-card{display:none}
+.cards{display:grid;gap:16px;margin-top:28px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;position:relative}
+.card.top{border:2px solid var(--accent)}
+.tag{position:absolute;top:-12px;left:20px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.04em}
+.amount{font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.card.top .amount{color:var(--accent)}
+.card h3{margin:8px 0 2px;font-size:19px}
+.card .sub{margin:0 0 12px;font-weight:600;color:var(--text-2)}
+.card p{margin:0 0 12px;color:var(--text-2)}
+.when{border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--text)}
+.when b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.note{font-size:14px;color:var(--text-2);margin:20px 0 0}
+.steps{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:20px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;counter-increment:s}
+.steps li::before{content:counter(s);width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent-strong);font-weight:800;display:grid;place-items:center}
+.steps h3{margin:6px 0 2px;font-size:18px}.steps p{margin:0;color:var(--text-2)}
+.info{display:grid;gap:16px;margin-top:28px}
+.info div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.info h3{margin:0 0 6px;font-size:17px}.info p{margin:0;color:var(--text-2)}
+.pending{background:#FEF3C7;color:#78350F;padding:0 4px;border-radius:4px;font-size:.9em}
+.segs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;padding:0;list-style:none}
+.segs li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;font-weight:600;font-size:15px;line-height:1.3}
+.segs svg{display:block;width:24px;height:24px;margin-bottom:10px;stroke:var(--accent-strong);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.about{display:grid;gap:16px}
+.fb{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:#fff}
+.fb h3{margin:0 0 6px}.fb p{margin:0 0 16px;color:var(--text-2)}
+form{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;max-width:560px;margin-top:24px}
+.stepper{font-size:14px;font-weight:700;color:var(--muted);margin-bottom:12px}
+.bar{height:4px;background:var(--line);border-radius:4px;margin-bottom:20px}.bar i{display:block;height:100%;width:50%;background:var(--accent);border-radius:4px}
+label{display:block;font-weight:600;font-size:15px;margin:14px 0 6px}
+input,select{width:100%;min-height:48px;border:1.5px solid #D1D5DB;border-radius:var(--r-sm);padding:0 14px;font:inherit;font-size:16px;background:#fff;color:var(--text)}
+input:focus,select:focus{border-color:var(--accent-strong);outline:none;box-shadow:0 0 0 3px #FED7C3}
+.row{display:grid;grid-template-columns:1fr 92px;gap:12px}
+.err input{border-color:#B91C1C}.errmsg{color:#B91C1C;font-size:14px;margin-top:6px}
+form .btn-primary{width:100%;margin-top:22px}
+.privacy{font-size:13px;color:var(--muted);margin:12px 0 0}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{font-weight:700;cursor:pointer;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--accent-strong);font-weight:800}
+details[open] summary::after{content:"−"}
+details p{margin:10px 0 0;color:var(--text-2)}
+footer{border-top:1px solid var(--line);padding:32px 0 96px;font-size:14px;color:var(--text-2)}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin:10px 0}
+.sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fffffff2;border-top:1px solid var(--line)}
+.sticky .btn{width:100%}
+@media (min-width:768px){
+  .nav .btn{display:inline-flex}.sticky{display:none}.strip{display:none}footer{padding-bottom:32px}
+  section{padding:88px 0}.hero{padding:64px 0 72px}
+  h1{font-size:50px}h2{font-size:34px}
+  .hero .wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:48px;align-items:center}
+  .cta-row{flex-direction:row;align-items:center;gap:24px}.cta-row .btn-primary{width:auto}
+  .hero-card{display:block;border:1px solid var(--line);border-radius:16px;padding:28px;background:var(--bg-alt)}
+  .hero-card .r{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+  .hero-card .r:last-child{border:0}.hero-card b{font-size:28px}.hero-card .r:last-child b{color:var(--accent)}
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(4,1fr)}.steps li{grid-template-columns:1fr}
+  .info{grid-template-columns:1fr 1fr}
+  .segs{grid-template-columns:repeat(3,1fr)}
+  .about{grid-template-columns:1.2fr 1fr;align-items:start}
+}
+</style>
+</head>
+<body>
+<div class="env">HOMOLOGAÇÃO · dados fictícios · nenhum cadastro é enviado</div>
+<header><div class="wrap">
+  <a class="brand" href="#">operum<span>data</span><small>AFILIADOS</small></a>
+  <nav class="nav"><a href="#entrar">Entrar</a><a class="btn" href="#cadastro">Quero ser afiliado</a></nav>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div>
+    <p class="eyebrow">Programa de indicação OperumData</p>
+    <h1><span class="q">Conhece donos de empresas?</span>Ganhe até <span class="v">R$&nbsp;300</span> por empresa que fechar contrato.</h1>
+    <p class="lead">Você apresenta a empresa. A OperumData cuida da negociação. Você recebe quando o contrato é assinado.</p>
+    <ul class="strip" aria-label="Valores por modalidade"><li><b>R$ 50</b> Indicação</li><li><b>R$ 150</b> Apresentação</li><li><b>R$ 300</b> Prospecção completa</li></ul>
+    <div class="cta-row"><a class="btn btn-primary" href="#cadastro">Quero ser afiliado</a><a class="ghost-link" href="#ganhos">Ver quanto posso ganhar ↓</a></div>
+    <ul class="seals"><li>Você não vende produto</li><li>Sem custo de adesão</li><li>Cadastro sujeito à aprovação</li></ul>
+  </div>
+  <aside class="hero-card" aria-hidden="true">
+    <p class="eyebrow">Por empresa com contrato</p>
+    <div class="r"><span>Indicação</span><b>R$ 50</b></div>
+    <div class="r"><span>Apresentação e qualificação</span><b>R$ 150</b></div>
+    <div class="r"><span>Prospecção completa</span><b>R$ 300</b></div>
+  </aside>
+</div></section>
+
+<section class="alt" id="ganhos"><div class="wrap">
+  <h2>Quanto você ganha por empresa</h2>
+  <p class="lead">O valor depende da sua participação. Cada empresa gera uma única comissão.</p>
+  <div class="cards">
+    <article class="card"><div class="amount">R$ 50</div><h3>Indicação</h3><p class="sub">Você indica. A OperumData negocia.</p><p>Passe o contato de um responsável pela empresa, com a autorização dele.</p><div class="when"><b>Quando recebe</b>Após contrato assinado e indicação validada.</div></article>
+    <article class="card"><div class="amount">R$ 150</div><h3>Apresentação e qualificação</h3><p class="sub">Você apresenta e qualifica.</p><p>Apresente o projeto ao responsável, confirme o interesse e as informações da empresa e encaminhe para formalização.</p><div class="when"><b>Quando recebe</b>Após contrato assinado e participação validada.</div></article>
+    <article class="card top"><span class="tag">MAIOR COMISSÃO</span><div class="amount">R$ 300</div><h3>Prospecção completa</h3><p class="sub">Você conduz do início ao fim.</p><p>Prospecte, visite a empresa, qualifique, conduza a negociação autorizada e acompanhe até o início das gravações.</p><div class="when"><b>Quando recebe</b>R$ 150 na contratação validada<br>+ R$ 150 no início das gravações.</div></article>
+  </div>
+  <p class="note">As comissões não se somam. O valor final é definido pela atuação comprovada e validada pela OperumData. Sem custo de adesão.</p>
+</div></section>
+
+<section id="como-funciona"><div class="wrap">
+  <h2>Como funciona</h2>
+  <ol class="steps">
+    <li><div><h3>Cadastre-se</h3><p>Leva poucos minutos e não tem custo.</p></div></li>
+    <li><div><h3>Seja aprovado</h3><p>Nossa equipe analisa seu perfil e retorna pelo WhatsApp ou e-mail.</p></div></li>
+    <li><div><h3>Indique empresas</h3><p>Registre as empresas no seu painel e escolha como vai participar.</p></div></li>
+    <li><div><h3>Acompanhe e receba</h3><p>Veja cada etapa da negociação e a situação das suas comissões.</p></div></li>
+  </ol>
+  <div class="info">
+    <div><h3>Quem pode participar</h3><p>Pessoas com bom relacionamento com donos e gestores de empresas: representantes comerciais, consultores, contadores, corretores, prestadores de serviço e empreendedores.</p></div>
+    <div><h3>O que a empresa recebe</h3><p><span class="pending">[A CONFIRMAR com a OperumData]</span></p></div>
+  </div>
+</div></section>
+
+<section class="alt" id="empresas"><div class="wrap">
+  <h2>Empresas comuns, com trabalho real acontecendo todo dia</h2>
+  <p class="lead">Não precisa ser empresa de tecnologia. Procuramos negócios estruturados, de preferência com 5 ou mais profissionais.</p>
+  <ul class="segs">
+    <li><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Energia e serviços de utilidade pública</li>
+    <li><svg viewBox="0 0 24 24"><path d="M3 21V7l9-4 9 4v14M9 21v-6h6v6M8 10h.01M12 10h.01M16 10h.01"/></svg>Hotelaria e serviços operacionais</li>
+    <li><svg viewBox="0 0 24 24"><path d="M8 3 4 6l2 4 2-1v12h8V9l2 1 2-4-4-3a4 4 0 0 1-8 0z"/></svg>Confecção e vestuário</li>
+    <li><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V11l7-5 7 5v10M9 21v-5h6v5"/></svg>Construção civil</li>
+    <li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>Oficinas e manutenção</li>
+    <li><svg viewBox="0 0 24 24"><path d="M3 21V10l6 4V10l6 4V5h4v16zM7 17h2M12 17h2M17 17h1"/></svg>Indústrias</li>
+  </ul>
+</div></section>
+
+<section id="sobre"><div class="wrap about">
+  <div>
+    <h2>Quem é a OperumData</h2>
+    <p class="lead">A OperumData atua em projetos internacionais de inteligência artificial e robótica. <span class="pending">[A CONFIRMAR: fatos e números autorizados]</span></p>
+    <a href="https://operumdata.com/" target="_blank" rel="noopener">Conheça a OperumData ↗</a>
+  </div>
+  <div class="fb">
+    <h3>Acompanhe a OperumData no Facebook</h3>
+    <p>Veja novidades dos projetos e do programa de indicação.</p>
+    <a class="btn btn-outline" href="https://www.facebook.com/operumdata/" target="_blank" rel="noopener">Seguir OperumData no Facebook</a>
+  </div>
+</div></section>
+
+<section class="alt" id="cadastro"><div class="wrap">
+  <h2>Faça seu cadastro</h2>
+  <p class="lead">Sem custo. Leva poucos minutos. Você recebe o retorno após a análise.</p>
+  <form novalidate aria-label="Cadastro de afiliado (referência visual)">
+    <div class="stepper">Etapa 1 de 2 · Seus dados</div>
+    <div class="bar"><i></i></div>
+    <label for="n">Nome completo</label><input id="n" autocomplete="name" value="Maria Exemplo">
+    <label for="e">E-mail</label><input id="e" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com">
+    <div class="err"><label for="w">WhatsApp</label><input id="w" type="tel" inputmode="numeric" value="(11) 9876" aria-invalid="true" aria-describedby="werr"><div class="errmsg" id="werr">Informe o WhatsApp com DDD, ex.: (11) 98765-4321</div></div>
+    <div class="row"><div><label for="c">Cidade</label><input id="c" autocomplete="address-level2"></div><div><label for="uf">UF</label><select id="uf"><option>UF</option><option>SP</option></select></div></div>
+    <button class="btn btn-primary" type="button">Continuar →</button>
+    <p class="privacy">Não pedimos CPF nem dados bancários agora.</p>
+  </form>
+</div></section>
+
+<section id="duvidas"><div class="wrap" style="max-width:760px">
+  <h2>Perguntas frequentes</h2>
+  <details open><summary>Preciso vender algum produto?</summary><p>Não. Você indica empresas ou participa da prospecção. A OperumData apresenta o projeto e formaliza o contrato.</p></details>
+  <details><summary>Tem algum custo para participar?</summary><p>Não. O cadastro é gratuito e não há mensalidade.</p></details>
+  <details><summary>Quanto e quando eu recebo?</summary><p>R$ 50, R$ 150 ou R$ 300 por empresa, conforme sua participação, depois do contrato assinado e validado. No R$ 300, metade na contratação e metade no início das gravações.</p></details>
+  <details><summary>Quem pode participar?</summary><p><span class="pending">[A CONFIRMAR]</span></p></details>
+  <details><summary>E se outra pessoa já tiver indicado a mesma empresa?</summary><p><span class="pending">[A CONFIRMAR]</span></p></details>
+  <details><summary>Como acompanho minhas indicações?</summary><p>Pelo seu painel, com a etapa de cada empresa e a situação de cada comissão.</p></details>
+  <p style="margin-top:28px"><a class="btn btn-primary" href="#cadastro">Quero ser afiliado</a></p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <strong>OperumData Afiliados</strong>
+  <nav><a href="#">Termos de Participação</a><a href="#">Aviso de Privacidade</a><a href="https://operumdata.com/" target="_blank" rel="noopener">Site institucional</a><a href="https://www.facebook.com/operumdata/" target="_blank" rel="noopener">Facebook</a></nav>
+  <div>Ambiente de homologação. Nenhum cadastro ou pagamento real é processado.</div>
+</div></footer>
+<div class="sticky"><a class="btn btn-primary" href="#cadastro">Quero ser afiliado</a></div>
+</body>
+</html>
