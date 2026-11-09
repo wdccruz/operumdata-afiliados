@@ -1,5 +1,7 @@
 # AGENTS.md — OperumData Parceiros (afiliados e prospecção remota)
 
+**Atualização de execução (09/11/2026):** o desenvolvimento completo do banco comercial e backend foi autorizado expressamente pela OperumData nesta conversa, sem aprovações rotineiras por etapa. A branch `feat/backend-supabase` parte de `bb2120f` e utiliza apenas o novo projeto `operumdata-comercial` (`owpkzqobxzsutsbhjrfp`). Estado efetivo, migrações, endpoints e pendências reais: [docs/BACKEND-IMPLEMENTADO.md](docs/BACKEND-IMPLEMENTADO.md). O estado histórico abaixo não deve ser confundido com o que já foi implementado nessa branch. Preservar as páginas públicas em edição paralela pelo Claude. Custos, dados reais, CRM e produção continuam fora da autorização.
+
 Leia este arquivo inteiro antes de qualquer mudança. Ele é a porta de entrada para o Codex e outros agentes. Nada aqui depende de conversas anteriores.
 
 **Ordem de leitura:** este arquivo → [docs/PENDENCIAS-CODEX.md](docs/PENDENCIAS-CODEX.md) → [docs/REGRAS-COMERCIAIS.md](docs/REGRAS-COMERCIAIS.md) → [docs/ARQUITETURA.md](docs/ARQUITETURA.md) → [docs/INTEGRACAO-SUPABASE.md](docs/INTEGRACAO-SUPABASE.md) → [docs/FLUXOS-E-DADOS.md](docs/FLUXOS-E-DADOS.md). Detalhes de interface: [docs/frontend-v2/](docs/frontend-v2/). Em caso de conflito, **este arquivo e os documentos de `docs/` (fora de `frontend-v2/`) prevalecem**: a pasta `frontend-v2/` registra o histórico da especificação de interface, e o `06-PROMPT-CODEX.md` ali é anterior à decisão do banco independente.

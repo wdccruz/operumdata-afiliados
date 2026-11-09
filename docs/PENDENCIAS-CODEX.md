@@ -1,5 +1,7 @@
 # Pendências para o Codex (sequência de implementação)
 
+**Autorização e execução (09/11/2026):** a OperumData autorizou a implementação integral das etapas técnicas de desenvolvimento, substituindo o gate de aceite por etapa abaixo. Foi criado o projeto gratuito `operumdata-comercial` e implementados banco, RLS, funções e painéis em branch isolada. Pendências reais e evidências estão em [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md). Não assumir que envio de e-mails, primeiro administrador e integração das páginas públicas já foram homologados. Produção, custos e alterações no CRM continuam proibidos.
+
 Ordem obrigatória. Cada etapa só começa quando a anterior estiver aceita pela OperumData. O banco é **independente**: um novo projeto Supabase só desta plataforma. Não usar o Supabase do CRM, não alterar o CRM e não depender dele. Criar o projeto e aplicar qualquer migration exige **aprovação explícita** da OperumData. Leia antes: [AGENTS.md](../AGENTS.md), [REGRAS-COMERCIAIS.md](REGRAS-COMERCIAIS.md), [INTEGRACAO-SUPABASE.md](INTEGRACAO-SUPABASE.md), [FLUXOS-E-DADOS.md](FLUXOS-E-DADOS.md).
 
 Regras para todas as etapas: nenhum segredo no Git; dados fictícios em testes; branches + PR em rascunho; `npm run check` e `npm test` verdes; não declarar pronto o que não foi testado.

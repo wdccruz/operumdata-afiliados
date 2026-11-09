@@ -6,7 +6,7 @@
 - **Não** modificar nem depender do CRM (`wdccruz/operumdata-crm`) para implementar as funcionalidades comerciais.
 - Integração com o CRM é **possibilidade futura, por API**, e **não** será implementada agora.
 
-**Nada deste documento está implementado.** Nesta etapa só existe a documentação. Não criar banco, não alterar o backend e não conectar ao CRM até a OperumData aprovar a etapa correspondente em [PENDENCIAS-CODEX.md](PENDENCIAS-CODEX.md).
+**Execução autorizada em 09/11/2026:** projeto independente criado, migrações e backend aplicados em `feat/backend-supabase`. A autorização expressa da OperumData substituiu aprovações rotineiras por etapa. Consulte [BACKEND-IMPLEMENTADO.md](BACKEND-IMPLEMENTADO.md) para os recursos efetivos e testes. O restante deste documento registra os contratos de arquitetura; decisões comerciais pendentes permanecem pendentes. Não conectar ao CRM nem publicar em produção.
 
 ## 1. Escopo: agora × futuro
 
