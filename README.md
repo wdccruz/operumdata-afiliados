@@ -1,56 +1,54 @@
-# OperumData Afiliados
+# OperumData Comercial — Prospecção remota e Afiliados
 
-**Foco atual: frontend.** Para revisar as telas sem API ou banco, execute `npm run preview:frontend` e abra http://localhost:3200. Use os botões de perfis fictícios. Veja [instruções do protótipo](docs/FRONTEND.md). O backend descrito abaixo está preservado para trabalho futuro; o frontend atual usa somente dados locais simulados.
+Plataforma comercial da OperumData para captar e gerir parceiros externos. **Comece por [AGENTS.md](AGENTS.md).**
 
-Aplicação de **homologação**, com frontend responsivo em português, API Node.js/Express e banco SQLite exclusivo persistente. Repositório privado e independente. GitHub armazena o código; GitHub Pages não executa o backend.
+## O que existe
 
-**Produção não está autorizada.** Os sites operumdata.com e parceiros.operumdata.com não são dependências deste projeto e devem permanecer inalterados.
+| Parte | Estado |
+|---|---|
+| Página principal — **Prospecção remota** (`public/index.html`) | Pronta. R$ 150 por empresa com contrato assinado e origem validada. |
+| Página secundária — **Afiliados** (`public/afiliados.html`, servida como `/afiliados`) | Pronta. R$ 50 Indique uma empresa · R$ 150 Apresente a oportunidade · R$ 300 Feche o negócio (2 × R$ 150: contrato assinado e início efetivo das gravações). |
+| Formulários das duas páginas | Validam no navegador e **não enviam nem armazenam dados** até o backend ser integrado. |
+| Hospedagem | **HostGator**, `https://comercial.operumdata.com`: `/` prospecção remota, `/afiliados`, `/painel/`. Pacote pronto com `.htaccess`; publicação pela OperumData ([docs/IMPLANTACAO-HOSTGATOR.md](docs/IMPLANTACAO-HOSTGATOR.md)). |
+| Prévia provisória | https://wdccruz.github.io/operumdata-afiliados/ (só revisão visual, fora das buscas; não faz parte da operação). |
+| Backend, banco, autenticação e painéis | **Em desenvolvimento pelo Codex** na branch `feat/backend-supabase`, num **projeto Supabase independente** (não usa o Supabase do CRM). |
+| Integração com o CRM | Possibilidade futura por API. Não faz parte da etapa atual. |
 
-## Executar localmente
+Regras comerciais aprovadas: [docs/REGRAS-COMERCIAIS.md](docs/REGRAS-COMERCIAIS.md). Comissões são valores fixos em reais, nunca percentuais ou níveis.
 
-Requisito: Node.js 24. Esta versão usa o módulo nativo node:sqlite.
+## Executar o frontend
 
-1. Clonar o repositório e executar `npm ci`.
-2. Copiar `.env.example` para `.env`.
-3. Definir `ADMIN_EMAIL` com e-mail fictício (por exemplo admin@example.test) e `ADMIN_PASSWORD` com senha exclusiva entre 12 e 128 caracteres.
-4. Executar `npm start` e abrir <http://localhost:3100>.
-5. Entrar com as credenciais definidas. O administrador inicial é criado somente se ainda não existir administrador. Alterar a variável depois não redefine a senha.
-
-O banco local fica em data/staging.sqlite, ignorado pelo Git. O servidor escuta apenas no loopback por padrão. Não há senha padrão no código.
-
-## Operação disponível
-
-- Landing page, solicitação de cadastro, login e logout.
-- Afiliados começam pendentes; administrador aprova, recusa ou retorna à análise.
-- Apenas afiliados aprovados registram empresas. Cada afiliado vê somente suas empresas e comissões.
-- CNPJ **numérico** com dígitos verificadores e domínio normalizado. CNPJ e domínio têm unicidade global no banco. Não há consulta ao cadastro oficial ou comprovação de titularidade.
-- Administrador analisa empresas, configura níveis, lança comissões e registra baixas com referência fictícia.
-- Níveis calculados por quantidade de empresas aprovadas. Percentuais iniciais de 5%, 7,5% e 10% são **provisórios de simulação**, editáveis pela administração.
-- Valores calculados em centavos; percentual preservado por lançamento. Uma comissão por empresa/competência mensal. Baixa duplicada bloqueada.
-- Nenhuma transferência financeira ou integração bancária. Todos os pagamentos são registros de teste.
-- Últimos 50 eventos na interface; trilha completa persistida no banco.
-
-## Segurança e verificação
-
-Senhas com scrypt/salt individual; sessões aleatórias armazenadas como hash; cookies HttpOnly e SameSite=Strict, com Secure obrigatório na origem HTTPS; expiração de 8 horas; CSRF e validação de origem; limite de tentativas de autenticação; SQL parametrizado; validação de entradas; CSP/Helmet; API sem cache. Permissões verificadas no servidor a cada requisição.
+Requisito: Node.js 24.
 
 ```sh
+npm ci
+npm run preview:frontend   # http://localhost:3200 e http://localhost:3200/afiliados
 npm run check
 npm test
-npm audit --omit=dev --audit-level=high
+node tools/build-hostgator.js --painel <pasta>   # pacote para a HostGator em dist/hostgator/comercial/
 ```
 
-Testes de integração com banco em memória e dados fictícios cobrem cadastro, login, aprovação, duplicidades, isolamento entre afiliados, permissões, CSRF, origem, comissões, preservação de percentual, baixa única, logout e bloqueio de produção. A CI verifica pushes e pull requests, sem deploy automático.
+O frontend é HTML, CSS e JavaScript puros, sem build e sem scripts inline (CSP `script-src 'self'`). Fotos em `public/assets/img/` com origem e licença anotadas no HTML.
 
-## Homologação externa
+## Documentação
 
-Ver [roteiro de infraestrutura e aceite](docs/HOMOLOGACAO.md). A URL externa precisa ser provisionada em um serviço autorizado com HTTPS e volume persistente. Dockerfile e Compose preparam um serviço Node único com banco exclusivo. Não executar múltiplas réplicas sobre o mesmo arquivo SQLite.
+| Documento | Conteúdo |
+|---|---|
+| [AGENTS.md](AGENTS.md) | Porta de entrada: estado, estrutura, comandos, regras e autorizações |
+| [docs/PENDENCIAS-CODEX.md](docs/PENDENCIAS-CODEX.md) | Sequência de implementação do backend, aceite e testes |
+| [docs/REGRAS-COMERCIAIS.md](docs/REGRAS-COMERCIAIS.md) | Modalidades aprovadas e decisões pendentes |
+| [docs/ARQUITETURA.md](docs/ARQUITETURA.md) | Frontend, formulários, fluxos, painéis, publicação e domínio |
+| [docs/IMPLANTACAO-HOSTGATOR.md](docs/IMPLANTACAO-HOSTGATOR.md) | Pacote, estrutura de pastas, cPanel, DNS, HTTPS e conferência |
+| [docs/INTEGRACAO-SUPABASE.md](docs/INTEGRACAO-SUPABASE.md) | Banco independente, modelo de dados, segurança, integração futura com o CRM |
+| [docs/FLUXOS-E-DADOS.md](docs/FLUXOS-E-DADOS.md) | Fluxos e campos, separando real, demonstrativo e não implementado |
+| [docs/frontend-v2/](docs/frontend-v2/) | Histórico da especificação de interface |
 
-## Pendências antes de produção
+## Legado
 
-Esta versão recusa APP_ENV=production e origens dos domínios atuais e futuro. O bloqueio é intencional; qualquer evolução exige aprovação expressa para publicação. Antes de produção: suporte a CNPJ alfanumérico, regras comerciais definitivas, recuperação de senha e verificação de e-mail, MFA administrativo, política de retenção, backups com restauração validada, monitoramento e dimensionamento. Ainda não há comprovação externa de empresas nem pagamentos automáticos.
+`src/`, `migrations/001_initial.sql`, `public/prototipo.html`, `public/app.js`, `public/demo.js`, `public/style.css` e `public/demo.css` são de um protótipo anterior (Express + SQLite, comissões percentuais e níveis). **Não representam o modelo aprovado**, não estão ligados às páginas e serão substituídos pelo backend do Codex. Os documentos `docs/FRONTEND.md` e `docs/HOMOLOGACAO.md` descrevem esse protótipo.
 
-## Referências
+## Limites
 
-- [SQLite do Node.js 24](https://nodejs.org/docs/latest-v24.x/api/sqlite.html)
-- [Segurança do Express](https://expressjs.com/en/advanced/best-practice-security/)
+- Produção não está autorizada sem aprovação expressa da OperumData.
+- `operumdata.com` e `parceiros.operumdata.com` não fazem parte deste projeto e não devem ser alterados.
+- Nenhum segredo, `.env` ou dado real no repositório.

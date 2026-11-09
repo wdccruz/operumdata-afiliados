@@ -1,0 +1,70 @@
+# OperumData Comercial: comercial.operumdata.com (HostGator, Apache)
+# Este arquivo fica na RAIZ da pasta do subdomínio. Não copiar para a pasta de operumdata.com.
+#
+# Rotas:
+#   /            → index.html       (Prospecção remota)
+#   /afiliados   → afiliados.html   (Afiliados)
+#   /painel/     → painel/index.html (área dos parceiros e da administração)
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+AddType text/javascript .js .mjs
+AddType image/webp .webp
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. HTTPS obrigatório (depois que o certificado SSL do subdomínio estiver ativo)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # 2. Bloqueia arquivos ocultos (.env, .git...), exceto .well-known (validação do SSL)
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+  # Candidatura de teste do painel grava no banco de teste: fora do ar até a homologação
+  RewriteRule ^painel/candidatura\.(html|js)$ - [F,L]
+
+  # 3. Endereços antigos e com extensão → endereço oficial
+  RewriteCond %{THE_REQUEST} \s/+afiliados(\.html|/)[\s?]
+  RewriteRule ^ /afiliados [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?]
+  RewriteRule ^ / [R=301,L]
+  RewriteRule ^prospeccao-remota(\.html)?/?$ / [R=301,L]
+  RewriteRule ^entrar(\.html)?/?$ /painel/ [R=301,L]
+  RewriteRule ^painel$ /painel/ [R=301,L]
+
+  # 4. Páginas sem extensão: /afiliados → afiliados.html, /termos → termos.html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^([a-z0-9-]+)$ $1.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "DENY"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  # Sem scripts ou estilos inline. connect-src libera apenas o Supabase (usado pelo /painel).
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  # HOMOLOGAÇÃO: fora dos buscadores. Remover esta linha só no lançamento autorizado.
+  Header always set X-Robots-Tag "noindex, nofollow"
+  # Ativar só depois de confirmar que o HTTPS funciona no subdomínio:
+  # Header always set Strict-Transport-Security "max-age=31536000"
+
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|mjs)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  <FilesMatch "\.(webp|png|jpe?g|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript image/svg+xml text/plain
+</IfModule>

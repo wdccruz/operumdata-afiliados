@@ -6,3 +6,4 @@ data/
 coverage/
 *.sqlite*
 *.log
+dist/

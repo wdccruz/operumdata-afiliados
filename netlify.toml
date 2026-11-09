@@ -1,0 +1,13 @@
+# Prévia estática do frontend (somente arquivos de public/). Não executa a API nem acessa banco.
+# Não usar com o domínio afiliados.operumdata.com: produção exige aprovação expressa da OperumData.
+[build]
+  publish = "public"
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
