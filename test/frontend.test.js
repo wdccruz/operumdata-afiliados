@@ -63,6 +63,10 @@ test('página de prospecção remota: textos, formulário próprio e nada de pro
   assert.doesNotMatch(html, /\d\s?%\s*(de\s)?comiss/i);
   assert.doesNotMatch(html, /\bnível\b|\bníveis\b/i);
   assert.match(html, /Envio ainda não disponível/);
+  assert.match(html, /id="condicoes-parceria"/);
+  assert.match(html, /Sem exclusividade/);
+  assert.doesNotMatch(html, /vaga de emprego|sal[aá]rio|contrata[cç][aã]o de telemarketing|v[ií]nculo trabalhista/i);
+  assert.doesNotMatch(html, /id="f-disp"[^>]*required/, 'disponibilidade é opcional');
   assert.doesNotMatch(html, /<script>(?!<\/script>)/);
   assert.doesNotMatch(html, /\sstyle="/);
   assert.doesNotMatch(html, /A CONFIRMAR/);

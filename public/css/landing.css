@@ -188,3 +188,4 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0}
 .hero-card .r b{white-space:nowrap;margin-left:12px}
 .perks li>div{align-self:start}
 @media (min-width:768px){.perks li{align-content:start}}
+.opt{font-weight:400;color:var(--muted)}
