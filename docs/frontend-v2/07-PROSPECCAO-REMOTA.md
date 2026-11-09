@@ -4,6 +4,19 @@ Modalidade para profissionais de telemarketing ativo, televendas e prospecção 
 
 > Nesta etapa existem só as páginas públicas e a especificação do painel. Não há banco, autenticação, distribuição de empresas nem pagamento. O backend e as permissões reais serão feitos depois pelo Codex com o **Supabase**. Nada aqui cria tabelas ou altera o CRM.
 
+## 0. Estrutura das páginas (correção de 09/11/2026)
+
+Somente duas páginas comerciais, sem página institucional extra:
+
+| Página | Arquivo | Papel |
+|---|---|---|
+| Prospecção remota | `public/index.html` | **Principal** e entrada da prévia. Herói, "Como funciona" (4 passos), "O que faz a OperumData?", candidatura, FAQ curto e "Condições da parceria" recolhidas (discretas). Afiliados aparecem só como link secundário (cabeçalho no desktop, FAQ e rodapé). |
+| Programa de afiliados | `public/afiliados.html` | Secundária. Conceito aprovado preservado (mesmas seções, formulário e modalidades R$ 50 / R$ 150 / R$ 300). Ajustes: o antigo "Quem é a OperumData" virou o bloco "O que faz a OperumData?", a chamada para a prospecção remota usa o texto aprovado e o cabeçalho tem o botão "Prospecção remota". |
+
+`prospeccao-remota.html` ficou só como redirecionamento para `./`, para links antigos. O bloco "O que faz a OperumData?" é igual nas duas páginas, aparece antes do formulário e tem o botão "Veja exemplos no Facebook" (link simples, nova aba, sem incorporar feed ou vídeo).
+
+A seção §1 abaixo descreve a versão anterior (página exclusiva) e fica como histórico.
+
 ## 1. O que já está no frontend
 
 | Item | Arquivo | Situação |

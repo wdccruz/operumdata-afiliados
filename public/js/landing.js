@@ -72,6 +72,11 @@
     if (!validStep('step2')) return;
     $('pending-api').classList.add('show');
   });
+  // Link para uma seção recolhida (ex.: condições da parceria) abre o bloco.
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]'); const t = a && document.getElementById(a.getAttribute('href').slice(1));
+    t?.querySelector('details')?.setAttribute('open', '');
+  });
   // Botão fixo no celular: aparece depois do herói e some quando o formulário está visível.
   const sticky = $('sticky');
   if ('IntersectionObserver' in window) {
