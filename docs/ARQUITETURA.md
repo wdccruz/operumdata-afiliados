@@ -5,9 +5,10 @@ Estado em 09/11/2026. Legenda: **[pronto]** funciona hoje; **[demo]** só demons
 ## 1. Visão geral
 
 ```
-Visitante ──► Site estático (GitHub Pages)            [pronto]
-               public/index.html      prospecção remota
-               public/afiliados.html  afiliados
+Visitante ──► Site estático na HostGator (comercial.operumdata.com)   [pacote pronto · publicação pela OperumData]
+               /            public/index.html      prospecção remota
+               /afiliados   public/afiliados.html  afiliados
+               /painel/     public/painel/         área dos parceiros e da administração (Codex)
                      │ formulários validam, mas NÃO enviam
                      ▼
             API de candidaturas (Supabase Edge Function)   [planejado]
@@ -37,9 +38,11 @@ Princípios: banco **independente** do CRM (decisão de 09/11/2026); o site púb
 | `/afiliados` | `public/afiliados.html` | Afiliados: herói, modelo de indicação, R$ 50/150/300, chamada destacada para a prospecção remota, contatos/setores, O que faz a OperumData?, cadastro, FAQ. |
 | `/prospeccao-remota.html` | redirecionamento | Mantém links antigos. |
 | `/termos.html`, `/privacidade.html` | provisórias | Texto jurídico pendente (REGRAS-COMERCIAIS P9). |
-| `/entrar.html` | placeholder | Sem login real. |
+| `/painel/` | `public/painel/` (branch do Codex) | Login e painéis de parceiros e administração. |
+| `/entrar.html` | placeholder | Na HostGator o `.htaccess` redireciona para `/painel/`. |
+| `404.html` | erro | Usada pelo `.htaccess` em qualquer endereço inexistente. |
 
-`/afiliados` sem extensão funciona porque o GitHub Pages serve `afiliados.html`; `tools/preview-frontend.js` imita esse comportamento localmente. Links internos são relativos (`./`, `afiliados`), para funcionar tanto na subpasta da prévia quanto na raiz do domínio próprio.
+`/afiliados` sem extensão e `/painel` → `/painel/` funcionam pelo `public/.htaccess` (Apache da HostGator); `tools/preview-frontend.js` imita esse comportamento localmente. Links internos são relativos (`./`, `afiliados`, `painel/`), exceto em `404.html`.
 
 `public/js/landing.js` (único script):
 - grava UTM permitidos (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`) em `sessionStorage['od.origem']`;
@@ -79,17 +82,16 @@ Arquitetura de frontend sugerida para os painéis (módulos ES, `DataClient` com
 
 ## 6. Publicação e domínio
 
-**Hoje [pronto]:** GitHub Pages publicado a partir da branch `gh-pages` (cópia de `public/`, com `.nojekyll`). URL: https://wdccruz.github.io/operumdata-afiliados/ e `/afiliados`. Repositório público por decisão da OperumData. `noindex` em todas as páginas e `robots.txt` com `Disallow: /`.
+**Hospedagem definitiva: HostGator**, subdomínio `https://comercial.operumdata.com` (decisão da OperumData, 09/11/2026). Rotas `/` (prospecção remota), `/afiliados` e `/painel/`. Supabase independente para banco, autenticação e APIs; GitHub para código e versões. Sem dependência de GitHub Pages ou de serviço intermediário de DNS/CDN.
 
-**Planejado: `comercial.operumdata.com`** (prospecção em `/`, afiliados em `/afiliados`):
-1. DNS do `operumdata.com` está no **Cloudflare** (NS `zara`/`watson.ns.cloudflare.com`). Em 09/11/2026 `comercial.operumdata.com` não existia (NXDOMAIN).
-2. Registro necessário, **somente com autorização da OperumData**: `CNAME comercial → wdccruz.github.io`, proxy **desligado** (nuvem cinza, "DNS only"), TTL automático. Não altera `operumdata.com`, `parceiros.operumdata.com` nem a HostGator.
-3. Depois que o DNS responder: GitHub → Settings → Pages → Custom domain = `comercial.operumdata.com` (isso grava o arquivo `CNAME` na `gh-pages`). Aguardar o certificado e marcar **Enforce HTTPS**.
-4. Recomendado: verificar o domínio `operumdata.com` em GitHub → Settings (conta) → Pages → Verified domains (registro TXT `_github-pages-challenge-wdccruz`), para impedir uso indevido do subdomínio.
-5. Após configurar, `wdccruz.github.io/operumdata-afiliados/` redireciona para o domínio próprio. Só considerar pronto após testar DNS, HTTPS e as duas páginas.
-6. Quando sair da fase de homologação (com aprovação), remover a faixa HOMOLOGAÇÃO, o `noindex` e o `robots.txt` restritivo.
+- **Pacote [pronto]:** `node tools/build-hostgator.js` gera `dist/hostgator/comercial/` com `.htaccess` (rotas, HTTPS, cabeçalhos de segurança, `noindex` de homologação), páginas, imagens e o painel do Codex. Testado em Apache 2.4 local.
+- **Publicação [pendente, feita pela OperumData]:** criar o subdomínio no cPanel, enviar os arquivos, conferir o DNS **no provedor que efetivamente administra o domínio** e emitir o certificado (AutoSSL). Passo a passo: [IMPLANTACAO-HOSTGATOR.md](IMPLANTACAO-HOSTGATOR.md).
+- Ordem: (1) toda a interface na HostGator em homologação; (2) ligar e testar com o Supabase do Codex. Nenhum cadastro real antes da integração homologada.
+- Só considerar o endereço funcionando depois de testar DNS, HTTPS e o carregamento de `/`, `/afiliados` e `/painel/`.
+- Saída da homologação, com aprovação: remover faixa HOMOLOGAÇÃO, `noindex`, `X-Robots-Tag` e o `robots.txt` restritivo.
+- Prévia provisória de revisão visual: https://wdccruz.github.io/operumdata-afiliados/ (branch `gh-pages`). Não faz parte da operação.
 
-Backend (Edge Functions) e painéis terão origem própria; configurar CORS só para `https://comercial.operumdata.com` (e a URL da prévia durante a homologação).
+Edge Functions do Supabase: CORS e URLs de autenticação só para `https://comercial.operumdata.com` (e endereços de teste durante a homologação).
 
 ## 7. Pontos de integração futura
 
@@ -97,7 +99,7 @@ Backend (Edge Functions) e painéis terão origem própria; configurar CORS só 
 |---|---|---|
 | `landing.js` envio da candidatura de prospector | `POST` função `partner-apply` (tipo `prospector`) | PENDENCIAS 2 |
 | `landing.js` envio do cadastro de afiliado | mesma função (tipo `affiliate`) | PENDENCIAS 2 |
-| `entrar.html` | Supabase Auth (convite, senha, recuperação) | PENDENCIAS 3 |
+| `/painel/` (antigo `entrar.html`) | Supabase Auth (convite, senha, recuperação) | PENDENCIAS 3 |
 | Painéis e administração | tabelas do banco independente com RLS | PENDENCIAS 4–7 |
 | Envio ao CRM / confirmações do CRM | API futura (não implementar) | fora do plano atual |
 | `termos.html`, `privacidade.html` | textos aprovados + versão registrada no aceite | depende de P9 |

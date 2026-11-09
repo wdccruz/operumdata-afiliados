@@ -6,10 +6,11 @@ Leia antes: [AGENTS.md](../AGENTS.md), [REGRAS-COMERCIAIS.md](REGRAS-COMERCIAIS.
 
 Regras para todas as etapas: nenhum segredo no Git; dados fictícios em testes; branches + PR em rascunho; `npm run check` e `npm test` verdes; não declarar pronto o que não foi testado.
 
-## Etapa 0 — Domínio da prévia (em andamento, fora do código)
+## Etapa 0 — Hospedagem na HostGator (pacote pronto; publicação pela OperumData)
 
-- Registro `CNAME comercial → wdccruz.github.io` (Cloudflare, DNS only) **com autorização da OperumData**; Custom domain no GitHub Pages; Enforce HTTPS. Ver [ARQUITETURA.md §6](ARQUITETURA.md).
-- Aceite: `https://comercial.operumdata.com/` e `/afiliados` respondem 200 com certificado válido; `operumdata.com` e `parceiros.operumdata.com` inalterados.
+- Pacote: `node tools/build-hostgator.js --painel <public/painel>` com `.htaccess` para `/`, `/afiliados` e `/painel/`. Subdomínio, upload, DNS (no provedor que administra o domínio) e AutoSSL feitos pela OperumData. Ver [IMPLANTACAO-HOSTGATOR.md](IMPLANTACAO-HOSTGATOR.md).
+- Para o Codex: Auth (Site URL e Redirect URLs) e CORS das Edge Functions com `https://comercial.operumdata.com/painel/`; o painel continua com caminhos relativos e sem scripts inline (CSP do `.htaccess`); decidir se `painel/candidatura.html` entra na homologação pública.
+- Aceite: `/`, `/afiliados` e `/painel/` respondem 200 com certificado válido e recarregam sem erro; `operumdata.com` e `parceiros.operumdata.com` inalterados.
 
 ## Etapa 1 — Projeto Supabase independente e esquema base
 
@@ -90,6 +91,6 @@ Registro mantido pela branch `feat/frontend-conversao`. Em 09/11/2026 a branch `
 | A3 | Campos e códigos | ver [FLUXOS-E-DADOS §1](FLUXOS-E-DADOS.md) | Valores de `experiencia_principal`, `tempo_experiencia`, `disponibilidade` (opcional) e `possui_equipamento` são os do HTML. |
 | A4 | Origem | `sessionStorage['od.origem']` com UTM permitidos | Enviar junto da candidatura. |
 | A5 | Mensagens | hoje "Envio ainda não disponível" | Trocar por confirmação só com resposta 2xx real; tratar erro de rede, 409 neutro e 429. |
-| A6 | Domínios para CORS e Auth | `https://comercial.operumdata.com` (planejado) e `https://wdccruz.github.io` (prévia) | |
+| A6 | Domínios para CORS e Auth | `https://comercial.operumdata.com` (HostGator) | A prévia provisória do GitHub Pages não precisa de CORS: lá os formulários não enviam. |
 | A7 | Rótulos das modalidades | "Indique uma empresa", "Apresente a oportunidade", "Feche o negócio" | Códigos internos sugeridos: `indicacao`, `apresentacao`, `prospeccao`. |
 

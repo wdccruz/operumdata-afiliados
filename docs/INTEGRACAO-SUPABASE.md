@@ -21,7 +21,7 @@
 ## 2. Projeto Supabase
 
 - Projeto novo, organização OperumData, nome sugerido `operumdata-comercial`. A criação do projeto é feita pela OperumData (ou com sua autorização). Ambientes separados de homologação e produção, ou ao menos banco de homologação com dados fictícios.
-- Auth: **cadastro público desabilitado**; contas criadas por convite após aprovação (Edge Function com `service_role` só no servidor). Senha ≥ 12, recuperação por e-mail, SMTP transacional, Site URL e Redirect URLs com `https://comercial.operumdata.com/` (e a URL da prévia em homologação).
+- Auth: **cadastro público desabilitado**; contas criadas por convite após aprovação (Edge Function com `service_role` só no servidor). Senha ≥ 12, recuperação por e-mail, SMTP transacional, Site URL e Redirect URLs com `https://comercial.operumdata.com/painel/` (hospedagem HostGator).
 - Todas as tabelas com RLS; `anon` e `public` sem privilégios em tabelas; escrita externa só por Edge Functions.
 - Segredos: chave pública (anon/publishable) no frontend; `service_role` e senhas só em secrets do Supabase. Nada no Git.
 - Migrations versionadas em `supabase/migrations/` neste repositório (aplicadas pelo Codex no projeto independente).

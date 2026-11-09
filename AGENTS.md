@@ -2,7 +2,7 @@
 
 Leia este arquivo inteiro antes de qualquer mudança. Ele é a porta de entrada para o Codex e outros agentes. Nada aqui depende de conversas anteriores.
 
-**Ordem de leitura:** este arquivo → [docs/PENDENCIAS-CODEX.md](docs/PENDENCIAS-CODEX.md) → [docs/REGRAS-COMERCIAIS.md](docs/REGRAS-COMERCIAIS.md) → [docs/ARQUITETURA.md](docs/ARQUITETURA.md) → [docs/INTEGRACAO-SUPABASE.md](docs/INTEGRACAO-SUPABASE.md) → [docs/FLUXOS-E-DADOS.md](docs/FLUXOS-E-DADOS.md). Detalhes de interface: [docs/frontend-v2/](docs/frontend-v2/). Em caso de conflito, **este arquivo e os documentos de `docs/` (fora de `frontend-v2/`) prevalecem**: a pasta `frontend-v2/` registra o histórico da especificação de interface, e o `06-PROMPT-CODEX.md` ali é anterior à decisão do banco independente.
+**Ordem de leitura:** este arquivo → [docs/PENDENCIAS-CODEX.md](docs/PENDENCIAS-CODEX.md) → [docs/REGRAS-COMERCIAIS.md](docs/REGRAS-COMERCIAIS.md) → [docs/ARQUITETURA.md](docs/ARQUITETURA.md) → [docs/INTEGRACAO-SUPABASE.md](docs/INTEGRACAO-SUPABASE.md) → [docs/FLUXOS-E-DADOS.md](docs/FLUXOS-E-DADOS.md). Publicação: [docs/IMPLANTACAO-HOSTGATOR.md](docs/IMPLANTACAO-HOSTGATOR.md). Detalhes de interface: [docs/frontend-v2/](docs/frontend-v2/). Em caso de conflito, **este arquivo e os documentos de `docs/` (fora de `frontend-v2/`) prevalecem**: a pasta `frontend-v2/` registra o histórico da especificação de interface, e o `06-PROMPT-CODEX.md` ali é anterior à decisão do banco independente.
 
 ## 1. Objetivo
 
@@ -33,8 +33,8 @@ Divisão do trabalho: o **frontend público** (`public/index.html`, `public/afil
 | Página de prospecção remota (`public/index.html`) | **Pronta** (frontend estático). Formulário valida, mas **não envia nem grava dados**. |
 | Página de afiliados (`public/afiliados.html`) | **Pronta** (frontend estático). Mesmo comportamento: valida e mostra "Envio ainda não disponível". |
 | Captura de UTM | **Pronta** em `sessionStorage` (`od.origem`), sem cookies, sem envio. |
-| Prévia pública | **Pronta** em GitHub Pages (branch `gh-pages`): https://wdccruz.github.io/operumdata-afiliados/ (noindex + robots.txt). |
-| Domínio `comercial.operumdata.com` | **Planejado.** Depende de registro DNS no Cloudflare autorizado pela OperumData. Ver [docs/ARQUITETURA.md §6](docs/ARQUITETURA.md). |
+| Hospedagem `comercial.operumdata.com` (HostGator) | **Pacote pronto** (`node tools/build-hostgator.js`, `.htaccess` testado em Apache). Publicação, subdomínio, DNS e SSL feitos pela OperumData. Ver [docs/IMPLANTACAO-HOSTGATOR.md](docs/IMPLANTACAO-HOSTGATOR.md). |
+| Prévia provisória | GitHub Pages (branch `gh-pages`), só para revisão visual: https://wdccruz.github.io/operumdata-afiliados/. Não faz parte da operação. |
 | Painel do afiliado, painel do prospector, área administrativa | **Em desenvolvimento pelo Codex**; nesta branch só especificados. Existe um protótipo demonstrativo antigo em `public/prototipo.html` com dados fictícios e modelo de comissão **obsoleto**. |
 | Backend, banco, autenticação | **Em desenvolvimento pelo Codex** em `feat/backend-supabase` (não incluído nesta branch). Banco **independente** (novo projeto Supabase só desta plataforma). Especificados em `docs/INTEGRACAO-SUPABASE.md` e `docs/FLUXOS-E-DADOS.md`. |
 | Integração com o CRM | **Apenas possibilidade futura** por API. Não implementar agora. |
@@ -43,19 +43,23 @@ Divisão do trabalho: o **frontend público** (`public/index.html`, `public/afil
 ## 3. Estrutura
 
 ```
-public/                    site estático publicado (GitHub Pages)
+public/                    site estático publicado na HostGator (comercial.operumdata.com)
+  .htaccess                rotas /, /afiliados, /painel/; HTTPS; cabeçalhos; noindex de homologação
+  404.html                 página de erro (caminhos absolutos)
+  painel/                  área dos parceiros e da administração (branch do Codex)
   index.html               PROSPECÇÃO REMOTA (página principal)
   afiliados.html           AFILIADOS (servida como /afiliados)
   prospeccao-remota.html   redirecionamento antigo → ./
   termos.html, privacidade.html   textos jurídicos provisórios (em revisão)
-  entrar.html              placeholder de login (sem autenticação)
+  entrar.html              placeholder antigo; na HostGator redireciona para /painel/
   prototipo.html, app.js, demo.js, style.css, demo.css   protótipo antigo, obsoleto
   css/landing.css          estilos das duas páginas
   js/landing.js            validação dos formulários, UTM, botão fixo (sem fetch)
   assets/img/              fotos (Unsplash; origem anotada no HTML)
   robots.txt               bloqueia indexação da prévia
 src/, migrations/          backend provisório obsoleto (ver §2)
-tools/preview-frontend.js  servidor estático local (/afiliados → afiliados.html)
+tools/preview-frontend.js  servidor estático local (/afiliados → afiliados.html, /painel → painel/)
+tools/build-hostgator.js   gera o pacote de upload em dist/hostgator/comercial/
 tools/export-frontend.js   exporta o protótipo antigo
 test/frontend.test.js      testes das páginas e do servidor de prévia
 test/app.test.js           testes do backend provisório
@@ -78,11 +82,11 @@ npm run check             # sintaxe dos .js
 npm test                  # todos os testes (Node 24)
 ```
 
-Publicar a prévia (somente após aprovação da OperumData): copiar o conteúdo de `public/` para a branch `gh-pages`, mantendo `.nojekyll` e `LEIA-ME.txt`. Ver [docs/ARQUITETURA.md §6](docs/ARQUITETURA.md).
+Pacote para a HostGator: `node tools/build-hostgator.js --painel <pasta public/painel do Codex>` → `dist/hostgator/comercial/`. A publicação é feita pela OperumData no cPanel. Ver [docs/IMPLANTACAO-HOSTGATOR.md](docs/IMPLANTACAO-HOSTGATOR.md).
 
 ## 6. Regras que não podem ser alteradas sem autorização expressa da OperumData
 
-1. Não alterar `operumdata.com`, `parceiros.operumdata.com`, seus repositórios, DNS ou hospedagem. Não publicar na HostGator.
+1. Não alterar `operumdata.com`, `parceiros.operumdata.com`, seus repositórios, registros DNS ou pastas na hospedagem. A plataforma comercial vai só para a pasta do subdomínio `comercial.operumdata.com` na HostGator, publicada pela OperumData ou com autorização expressa dela. Não presumir qual provedor administra o DNS: verificar no painel de quem administra o domínio.
 2. Não publicar em produção nem ativar cadastros reais antes de existir backend seguro **e** termos jurídicos aprovados.
 3. Não usar, alterar nem depender do CRM (`wdccruz/operumdata-crm`) ou do seu projeto Supabase. O banco desta plataforma é independente; o Codex pode desenvolvê-lo com autonomia (ver "Autorização do Codex"). Sem serviços pagos. Integração com o CRM é possibilidade futura por API.
 4. Não versionar senhas, tokens, chaves (`service_role`, chaves secretas), `.env` ou dados reais. Usar só dados fictícios em testes.
@@ -97,4 +101,4 @@ Publicar a prévia (somente após aprovação da OperumData): copiar o conteúdo
 
 ## 7. Branches
 
-`main` ← `feat/homologacao` (PR #1) ← `feat/frontend-demo` (PR #2) ← `feat/frontend-conversao` (PR #3, rascunho, frontend público e documentação). `feat/backend-supabase`: backend do Codex. Não fazer merge entre as duas sem combinar. `gh-pages` contém só a cópia publicada de `public/`.
+`main` ← `feat/homologacao` (PR #1) ← `feat/frontend-demo` (PR #2) ← `feat/frontend-conversao` (PR #3, rascunho, frontend público e documentação). `feat/backend-supabase`: backend do Codex. Não fazer merge entre as duas sem combinar. `gh-pages` contém só a prévia provisória de `public/` (revisão visual, não é a hospedagem).
