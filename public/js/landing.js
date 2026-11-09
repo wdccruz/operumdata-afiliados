@@ -1,5 +1,6 @@
-// OperumData Afiliados · landing (frontend v2).
-// O cadastro NÃO envia nem armazena dados: o envio depende da integração futura com o backend.
+// OperumData Afiliados · landing e página de prospecção remota (frontend v2).
+// Os formulários NÃO enviam nem armazenam dados: o envio depende da integração futura com o backend.
+// O tipo de cadastro vem de form[data-tipo]: afiliado_indicador ou candidato_prospector_remoto.
 (() => {
   // Origem da campanha: guarda só os parâmetros UTM na sessão, para anexar ao cadastro quando o envio existir.
   try {
@@ -35,9 +36,9 @@
   }
   function check(el) {
     const rule = el.dataset.rule;
-    if (rule === 'chips') {
+    if (rule === 'chips' || rule === 'radio') {
       const ok = !!el.querySelector('input:checked');
-      return setError(el, ok || 'Escolha ao menos um setor.');
+      return setError(el, ok || el.dataset.msg || 'Escolha uma opção.');
     }
     return setError(el, msgs[rule](el.value || '', el));
   }
@@ -58,13 +59,14 @@
   function go(n) {
     form.dataset.step = n;
     $('step1').hidden = n !== 1; $('step2').hidden = n !== 2;
-    $('step-label').textContent = n === 1 ? 'Etapa 1 de 2 · Seus dados' : 'Etapa 2 de 2 · Perfil e acesso';
+    const step = $(n === 1 ? 'step1' : 'step2');
+    $('step-label').textContent = step.dataset.label;
     $('pending-api').classList.remove('show');
-    (n === 1 ? $('f-nome') : $('f-perfil')).focus();
+    step.querySelector('input,select').focus();
   }
   $('btn-next').addEventListener('click', () => { if (validStep('step1')) go(2); });
   $('btn-back').addEventListener('click', () => go(1));
-  $('btn-pw').addEventListener('click', e => { const p = $('f-senha'); const show = p.type === 'password'; p.type = show ? 'text' : 'password'; e.target.textContent = show ? 'Ocultar' : 'Mostrar'; });
+  $('btn-pw')?.addEventListener('click', e => { const p = $('f-senha'); const show = p.type === 'password'; p.type = show ? 'text' : 'password'; e.target.textContent = show ? 'Ocultar' : 'Mostrar'; });
   form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validStep('step2')) return;
@@ -74,8 +76,9 @@
   const sticky = $('sticky');
   if ('IntersectionObserver' in window) {
     const seen = new Map();
-    const update = () => sticky.classList.toggle('off', !!(seen.get('hero-cta') || seen.get('cadastro')));
+    const update = () => sticky.classList.toggle('off', !!(seen.get('hero-cta') || seen.get(form.closest('section').id)));
     const io = new IntersectionObserver(es => { es.forEach(x => seen.set(x.target.id, x.isIntersecting)); update(); });
-    io.observe($('hero-cta')); io.observe($('cadastro'));
+    const formSection = form.closest('section');
+    io.observe($('hero-cta')); io.observe(formSection);
   }
 })();

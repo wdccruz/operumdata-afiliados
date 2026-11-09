@@ -25,6 +25,9 @@ Legenda: **Pronto** = funciona de verdade só com frontend. **Simulado** = funci
 | Dados de recebimento (CPF, Pix, banco) | | | ✅ fase futura |
 | Edição de perfil | | | ✅ |
 | Termos e Aviso de Privacidade | estrutura ✅ | | texto jurídico da OperumData |
+| Prospecção remota: destaque na principal e página exclusiva (07) | ✅ | | |
+| Candidatura de prospector remoto | validação e "Envio ainda não disponível" ✅ | ❌ não simula recebimento | ✅ `enviarCandidaturaProspector` |
+| Painel do prospector (carteira, contatos, reuniões, comissões) | especificado (07 §4) | | ✅ Supabase: atribuição exclusiva e RLS |
 
 Nenhuma tela pode exibir "concluído", "salvo", "enviado" ou "pago" fora do modo demo sem resposta real do backend.
 

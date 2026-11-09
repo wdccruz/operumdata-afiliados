@@ -8,7 +8,7 @@ Copie o bloco abaixo para o Codex.
 # TAREFA: Implementar o frontend v2 da OperumData Afiliados
 
 ## Contexto
-Repositório: wdccruz/operumdata-afiliados (privado). Não criar outro repositório nem projeto.
+Repositório: wdccruz/operumdata-afiliados. Não criar outro repositório nem projeto.
 Branch de trabalho: feat/frontend-conversao (já existe; parte de feat/frontend-demo, que contém feat/homologacao).
 A especificação aprovada está em docs/frontend-v2/. Leia TODOS os arquivos antes de começar:
   01-ANALISE-E-ESTRATEGIA.md   diagnóstico, textos, identidade visual, regra de contraste do laranja
@@ -16,7 +16,9 @@ A especificação aprovada está em docs/frontend-v2/. Leia TODOS os arquivos an
   03-AREAS-AFILIADO-E-ADMIN.md telas autenticadas, vocabulário de status, modalidades
   04-COMPONENTES-E-CONTRATOS.md arquitetura, pastas, DataClient, tipos, erros, componentes
   05-STATUS-E-HOMOLOGACAO.md   pronto/simulado/pendente e critérios de aceite
+  07-PROSPECCAO-REMOTA.md      modalidade de prospecção remota, painel do prospector e regras para o Supabase
   referencia-landing.html      referência visual da landing (abrir no navegador)
+  public/index.html e public/prospeccao-remota.html são a versão aprovada mais recente das páginas públicas
 Em caso de conflito, a ordem de prioridade é: este prompt > 05 > 04 > 03 > 02 > 01 > referência visual.
 
 ## Objetivo

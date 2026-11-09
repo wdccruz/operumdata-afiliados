@@ -15,7 +15,7 @@ header{border-bottom:1px solid var(--line);background:#fff}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
 .brand{font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
 .brand span{font-weight:400}.brand small{font-size:11px;font-weight:700;color:var(--accent-strong);letter-spacing:.12em;margin-left:6px}
-.nav{display:flex;gap:16px;align-items:center}.nav a{font-weight:600;text-decoration:none;color:var(--text)}
+.nav{display:flex;gap:16px;align-items:center}.nav a{font-weight:600;text-decoration:none;color:var(--text);white-space:nowrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:var(--r-sm);font:inherit;font-weight:700;font-size:18px;text-decoration:none;border:0;cursor:pointer}
 .btn-primary{background:var(--accent);color:#fff}
 .btn-primary:hover{background:#F04A10}
@@ -138,3 +138,53 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0}
 .page-title{font-size:28px}
 @media (min-width:768px){.page-title{font-size:38px}}
 .wrap-narrow{max-width:760px}
+
+/* Prospecção remota: destaque na página principal */
+.hero-alt{display:inline-block;margin-top:14px;font-size:15px;font-weight:600;color:var(--text);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px;text-decoration-thickness:2px}
+.remote-sec{padding-top:8px}
+.remote{background:var(--text);color:#fff;border-radius:16px;overflow:hidden;display:grid}
+.remote-media img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 30%}
+.remote-body{padding:22px 20px 24px}
+.remote .eyebrow{color:#FF8A5C}
+.remote h2{color:#fff;font-size:26px}
+.remote-sub{font-size:18px;font-weight:600;color:#fff;margin:0 0 12px}
+.remote-body p{color:#D1D5DB;margin:0 0 10px}
+.remote-value{display:flex;align-items:baseline;gap:12px;margin:16px 0 18px;padding:12px 14px;border-radius:var(--r-sm);background:#1F2329;border:1px solid #2F343B}
+.remote-value b{font-size:30px;font-weight:800;color:var(--accent);letter-spacing:-.02em;line-height:1;flex:none}
+.remote-value span{color:#fff;font-size:15px;line-height:1.35}
+.btn-light{background:#fff;color:var(--text);width:100%}
+.btn-light:hover{background:#FFF1EB}
+.remote .remote-note{font-size:13px;color:#9CA3AF;margin:12px 0 0}
+@media (min-width:768px){
+  .remote-sec{padding-top:16px}
+  .remote{grid-template-columns:1fr 1.1fr;align-items:stretch}
+  .remote-media img{height:100%;aspect-ratio:auto;min-height:420px}
+  .remote-body{padding:40px 44px}
+  .remote h2{font-size:34px}
+  .btn-light{width:auto}
+}
+
+/* Página de prospecção remota */
+.perks{display:grid;gap:12px;margin-top:18px;padding:0;list-style:none}
+.perks li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
+.perks svg{width:40px;height:40px;padding:9px;border-radius:10px;background:var(--accent-soft);stroke:var(--accent-strong);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.perks b{display:block;font-size:17px;margin-bottom:2px}.perks span{color:var(--text-2);font-size:15px}
+.steps-5{grid-template-columns:1fr}
+.important{margin-top:20px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--text);border-radius:var(--r);padding:16px 18px;font-size:15px;color:var(--text-2)}
+.important b{color:var(--text)}
+.radios{border:0;padding:0;margin:0;display:flex;gap:8px;flex-wrap:wrap}
+.radios legend{font-weight:600;font-size:15px;margin:12px 0 6px;padding:0}
+.radios label{margin:0;font-weight:500;font-size:15px;border:1.5px solid #D1D5DB;border-radius:var(--r-sm);padding:10px 16px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;min-height:44px}
+.radios input{accent-color:var(--accent-strong);width:18px;height:18px;margin:0}
+.radios label:has(input:checked){border-color:var(--accent-strong);background:var(--accent-soft)}
+.pitch{display:grid;gap:12px;margin-top:16px}
+.pitch .list-card p{margin:0;color:var(--text-2);font-size:15px}
+@media (min-width:768px){
+  .perks{grid-template-columns:repeat(4,1fr)}
+  .perks li{grid-template-columns:1fr;gap:10px}
+  .steps-5{grid-template-columns:repeat(5,1fr)}
+  .pitch{grid-template-columns:1fr 1fr;gap:16px}
+}
+.hero-card .r b{white-space:nowrap;margin-left:12px}
+.perks li>div{align-self:start}
+@media (min-width:768px){.perks li{align-content:start}}
