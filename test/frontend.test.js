@@ -37,6 +37,7 @@ test('página de afiliados preserva as três modalidades e destaca a prospecçã
   assert.match(html, /Ganhe até <span class="v">R\$&nbsp;300<\/span>/);
   for (const valor of ['R$ 50', 'R$ 150', 'R$ 300']) assert.ok(html.includes(valor), valor);
   assert.match(html, /R\$ 150 no início efetivo das gravações/);
+  for (const t of ['Indique uma empresa', 'Apresente a oportunidade', 'Feche o negócio']) assert.ok(html.includes(`<h3>${t}</h3>`), t);
   assert.match(html, /Você não precisa ter uma lista própria de contatos/);
   assert.match(html, /href="\.\/">Conhecer prospecção remota</);
   assert.doesNotMatch(html, /A CONFIRMAR/);

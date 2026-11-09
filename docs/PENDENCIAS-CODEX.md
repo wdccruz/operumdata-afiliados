@@ -1,6 +1,8 @@
 # Pendências para o Codex (sequência de implementação)
 
-Ordem obrigatória. Cada etapa só começa quando a anterior estiver aceita pela OperumData. O banco é **independente**: um novo projeto Supabase só desta plataforma. Não usar o Supabase do CRM, não alterar o CRM e não depender dele. Criar o projeto e aplicar qualquer migration exige **aprovação explícita** da OperumData. Leia antes: [AGENTS.md](../AGENTS.md), [REGRAS-COMERCIAIS.md](REGRAS-COMERCIAIS.md), [INTEGRACAO-SUPABASE.md](INTEGRACAO-SUPABASE.md), [FLUXOS-E-DADOS.md](FLUXOS-E-DADOS.md).
+Sequência recomendada. **O Codex está autorizado a desenvolver de forma autônoma** o banco comercial num **projeto Supabase independente** (não o do CRM): criar e aplicar migrations, implementar autenticação, APIs e painéis, sem pedir aprovação a cada operação rotineira. **Não** está autorizado a contratar serviços pagos, alterar o CRM de forma destrutiva, publicar produção ou ativar cadastros reais antes dos termos jurídicos aprovados. A integração com o CRM é evolução futura. Detalhes em [AGENTS.md](../AGENTS.md) ("Autorização do Codex"). Decisões comerciais marcadas como pendentes em REGRAS-COMERCIAIS continuam dependendo da OperumData.
+
+Leia antes: [AGENTS.md](../AGENTS.md), [REGRAS-COMERCIAIS.md](REGRAS-COMERCIAIS.md), [INTEGRACAO-SUPABASE.md](INTEGRACAO-SUPABASE.md), [FLUXOS-E-DADOS.md](FLUXOS-E-DADOS.md).
 
 Regras para todas as etapas: nenhum segredo no Git; dados fictícios em testes; branches + PR em rascunho; `npm run check` e `npm test` verdes; não declarar pronto o que não foi testado.
 
@@ -11,10 +13,10 @@ Regras para todas as etapas: nenhum segredo no Git; dados fictícios em testes; 
 
 ## Etapa 1 — Projeto Supabase independente e esquema base
 
-- A OperumData cria (ou autoriza criar) o projeto `operumdata-comercial` (homologação primeiro). Configurar Auth: cadastro público desabilitado, senha ≥ 12, SMTP, Redirect URLs.
+- Criar o projeto `operumdata-comercial` (plano gratuito; homologação primeiro). Configurar Auth: cadastro público desabilitado, senha ≥ 12, SMTP, Redirect URLs.
 - Pasta `supabase/` neste repositório com `config.toml` e migrations do esquema base de [INTEGRACAO-SUPABASE.md §3](INTEGRACAO-SUPABASE.md): `users_profile`, `companies` (validação de CNPJ), `company_contacts`, `events`, `audit_log`, funções de papel, RLS em tudo, `anon` sem acesso a tabelas.
 - Ambiente local de testes de banco (ex.: PGlite ou `supabase start`) com contas sintéticas.
-- Aceite: migrations revisadas e aprovadas antes de aplicar; testes de RLS e de CNPJ passando; nenhum segredo no Git.
+- Aceite: testes de RLS e de CNPJ passando; nenhum segredo no Git.
 - Dependências: nenhuma. **Não** conectar ao CRM.
 
 ## Etapa 2 — Recebimento real de candidaturas
@@ -74,5 +76,20 @@ Não implementar. Quando a OperumData decidir: projeto próprio com aprovação 
 
 - Descrição com o que está **pronto**, **demonstrativo** e **pendente**, refletindo o estado real.
 - Capturas em 360, 390 e 1280 px das telas alteradas.
-- Lista de migrations com plano de rollback; nenhuma aplicada sem aprovação.
+- Lista de migrations com plano de rollback.
 - Testes de RLS e isolamento passando.
+
+## Alinhamento entre as branches (frontend × backend)
+
+Registro mantido pela branch `feat/frontend-conversao`. Em 09/11/2026 a branch `feat/backend-supabase` ainda não estava publicada no GitHub, então não foi possível comparar. Pontos que o backend precisa respeitar para o frontend atual:
+
+| # | Ponto | Frontend atual | Observação |
+|---|---|---|---|
+| A1 | Tipo de cadastro | `form[data-tipo]` = `candidato_prospector_remoto` ou `afiliado_indicador` | A especificação de dados usa `kind = remote_prospector / affiliate`. Mapear no envio. |
+| A2 | Senha no cadastro de afiliado | o formulário pede senha (≥12) | Recomendado: conta só por convite após aprovação. Se o backend adotar isso, o frontend remove o campo. |
+| A3 | Campos e códigos | ver [FLUXOS-E-DADOS §1](FLUXOS-E-DADOS.md) | Valores de `experiencia_principal`, `tempo_experiencia`, `disponibilidade` (opcional) e `possui_equipamento` são os do HTML. |
+| A4 | Origem | `sessionStorage['od.origem']` com UTM permitidos | Enviar junto da candidatura. |
+| A5 | Mensagens | hoje "Envio ainda não disponível" | Trocar por confirmação só com resposta 2xx real; tratar erro de rede, 409 neutro e 429. |
+| A6 | Domínios para CORS e Auth | `https://comercial.operumdata.com` (planejado) e `https://wdccruz.github.io` (prévia) | |
+| A7 | Rótulos das modalidades | "Indique uma empresa", "Apresente a oportunidade", "Feche o negócio" | Códigos internos sugeridos: `indicacao`, `apresentacao`, `prospeccao`. |
+

@@ -203,3 +203,5 @@ section:not(.alt) .biz-flow li{background:var(--bg-alt);border-color:transparent
   .hide-sm{display:inline}
   .fine{padding:0 0 48px}
 }
+/* Foto da prospecção remota: pessoa à esquerda do quadro */
+img[src$="prospector-remoto.webp"]{object-position:22% 40%!important}
