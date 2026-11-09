@@ -15,6 +15,7 @@ export function resolvePublicPath(urlPath) {
   let name;
   try { name = decodeURIComponent(new URL(urlPath, 'http://localhost').pathname); } catch { return null; }
   if (name.endsWith('/')) name += 'index.html';
+  else if (/\/[a-z0-9-]+$/.test(name)) name += '.html'; // /afiliados → afiliados.html, como no GitHub Pages
   const file = resolve(root, '.' + name);
   if (!file.startsWith(root.endsWith(sep) ? root : root + sep) || !types[extname(file)]) return null;
   return file;

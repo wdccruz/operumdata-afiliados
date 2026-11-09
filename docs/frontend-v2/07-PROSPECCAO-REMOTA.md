@@ -2,7 +2,7 @@
 
 Modalidade para profissionais de telemarketing ativo, televendas e prospecção comercial. Ela é **separada** do programa de indicação (R$ 50 / R$ 150 / R$ 300), que continua igual.
 
-> Nesta etapa existem só as páginas públicas e a especificação do painel. Não há banco, autenticação, distribuição de empresas nem pagamento. O backend e as permissões reais serão feitos depois pelo Codex com o **Supabase**. Nada aqui cria tabelas ou altera o CRM.
+> Nesta etapa existem só as páginas públicas e a especificação do painel. Não há banco, autenticação, distribuição de empresas nem pagamento. O backend e as permissões reais serão feitos depois pelo Codex num **Supabase independente** (novo projeto, sem usar o do CRM). O modelo de dados vigente está em `docs/INTEGRACAO-SUPABASE.md`, que prevalece sobre os nomes de tabela deste arquivo. Nada aqui cria tabelas ou altera o CRM.
 
 ## 0. Estrutura das páginas (correção de 09/11/2026)
 

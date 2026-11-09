@@ -26,7 +26,7 @@ test('página principal é a prospecção remota, objetiva e sem linguagem de em
   for (const id of ['f-nome', 'f-whats', 'f-email', 'f-cidade', 'f-uf', 'f-experiencia', 'f-tempo', 'f-disp', 'f-equip', 'f-aceite']) assert.match(html, new RegExp(`id="${id}"`), id);
   assert.doesNotMatch(html, /id="f-disp"[^>]*required/, 'disponibilidade é opcional');
   assert.doesNotMatch(html, /vaga de emprego|sal[aá]rio|contrata[cç][aã]o de telemarketing|v[ií]nculo trabalhista/i);
-  assert.match(html, /href="afiliados\.html"/, 'afiliados como link secundário');
+  assert.match(html, /href="afiliados"/, 'afiliados como link secundário, sem .html');
   assert.doesNotMatch(html, /A CONFIRMAR/);
   semCSPInline(html);
 });
@@ -79,4 +79,5 @@ test('servidor de prévia bloqueia caminhos fora de public/ e extensões não pe
   const encoded = resolvePublicPath('/%2e%2e/src/app.js');
   assert.ok(encoded === null || encoded.includes(`${sep}public${sep}`), 'nunca sai de public/');
   assert.equal(resolvePublicPath('/.env'), null);
+  assert.ok(resolvePublicPath('/afiliados').endsWith(`${sep}afiliados.html`), 'rota sem extensão');
 });
