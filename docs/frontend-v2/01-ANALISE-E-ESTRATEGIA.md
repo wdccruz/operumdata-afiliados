@@ -163,6 +163,7 @@ O laranja `#FF5A1F` com texto branco tem contraste **3,1:1**. Isso só atende WC
 - Grade de 8 px. Seções com 56–72 px de respiro no celular, 96 px no desktop.
 - Largura de leitura máxima de 680 px nos textos; conteúdo até 1120 px.
 - Ícones de traço simples (1,5–2 px), monocromáticos, inline SVG, 20–24 px.
+- **Revisão 4 (09/11/2026):** a pedido do Wagner, o herói usa uma foto de pessoas em ambiente empresarial (`docs/frontend-v2/hero-afiliados.webp`, Unsplash photo-1600880292203-757bb62b4baf, Licença Unsplash: uso comercial gratuito, sem atribuição obrigatória). No celular, a foto fica abaixo do botão para não empurrar o cadastro; no desktop, ocupa a coluna direita com o cartão de comissões sobreposto. O Codex deve hospedar a imagem localmente em `public/assets/img/` (sem CDN externo) e trocá-la por foto real da OperumData quando houver.
 - Imagens: **somente fotos reais fornecidas pela OperumData** (equipe, gravações, empresas parceiras com autorização). Não usar banco de imagens com pessoas genéricas sorrindo. Até receber as fotos, usar blocos neutros com ícones. Toda imagem com `width`/`height`, `loading="lazy"` (exceto acima da dobra) e WebP/AVIF ≤ 120 KB.
 - Animação: apenas transições de 150–200 ms em hover/foco; respeitar `prefers-reduced-motion`.
 

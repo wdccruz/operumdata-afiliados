@@ -45,6 +45,8 @@ h2{font-size:24px;line-height:1.2;letter-spacing:-.01em;margin:0 0 6px}
 .hero .btn-primary{width:100%}
 .seals{display:flex;flex-wrap:wrap;gap:4px 14px;margin:14px 0 0;padding:0;list-style:none;font-size:14px;color:var(--text-2)}
 .seals li::before{content:"✓ ";color:var(--success);font-weight:800}
+.hero-media{margin-top:22px}
+.hero-media img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 35%;border-radius:var(--r)}
 .hero-card{display:none}
 .cards{display:grid;gap:12px;margin-top:20px}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;position:relative}
@@ -126,9 +128,12 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0}
   h1{font-size:48px}h2{font-size:32px}
   .hero .wrap{display:grid;grid-template-columns:1.3fr .9fr;gap:48px;align-items:center}
   .hero .btn-primary{width:auto}.strip{display:none}
-  .hero-card{display:block;border:1px solid var(--line);border-radius:16px;padding:24px 28px;background:var(--bg-alt)}
-  .hero-card .r{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
-  .hero-card .r:last-child{border:0}.hero-card b{font-size:28px}.hero-card .r:last-child b{color:var(--accent)}
+  .hero-media{margin-top:0}
+  .hero-media img{aspect-ratio:4/3;border-radius:16px}
+  .hero-card{display:block;position:relative;margin:-64px 20px 0;border:1px solid var(--line);border-radius:14px;padding:14px 22px;background:#fff;box-shadow:0 10px 28px rgb(17 20 24 / .12)}
+  .hero-card .eyebrow{margin-bottom:4px}
+  .hero-card .r{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line)}
+  .hero-card .r:last-child{border:0}.hero-card b{font-size:22px}.hero-card .r:last-child b{color:var(--accent)}
   .cards{grid-template-columns:repeat(3,1fr)}
   .steps{grid-template-columns:repeat(4,1fr)}
   .lists{grid-template-columns:1fr 1fr;gap:16px}
@@ -154,12 +159,16 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0}
     <a class="btn btn-primary" id="hero-cta" href="#cadastro">Quero ser afiliado</a>
     <ul class="seals"><li>Sem custo de adesão</li><li>Sem experiência em vendas</li><li>Cadastro sujeito à aprovação</li></ul>
   </div>
-  <aside class="hero-card" aria-hidden="true">
-    <p class="eyebrow">Comissão por empresa</p>
-    <div class="r"><span>Indicação</span><b>R$ 50</b></div>
-    <div class="r"><span>Apresentação e qualificação</span><b>R$ 150</b></div>
-    <div class="r"><span>Prospecção completa</span><b>R$ 300</b></div>
-  </aside>
+  <div class="hero-media">
+    <!-- Foto: Unsplash (photo-1600880292203-757bb62b4baf), Licença Unsplash, uso comercial gratuito. Substituir por foto real da OperumData quando houver. -->
+    <img src="hero-afiliados.webp" alt="Dois profissionais comemorando um negócio fechado em uma reunião de escritório" width="1100" height="733" fetchpriority="high" decoding="async">
+    <aside class="hero-card" aria-hidden="true">
+      <p class="eyebrow">Comissão por empresa</p>
+      <div class="r"><span>Indicação</span><b>R$ 50</b></div>
+      <div class="r"><span>Apresentação e qualificação</span><b>R$ 150</b></div>
+      <div class="r"><span>Prospecção completa</span><b>R$ 300</b></div>
+    </aside>
+  </div>
 </div></section>
 
 <section class="alt" id="como-funciona"><div class="wrap">
