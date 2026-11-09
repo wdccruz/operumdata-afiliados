@@ -28,6 +28,12 @@ Roteamento por History API com fallback para `index.html` (o servidor de prévia
 
 Diretrizes da revisão do Wagner: preservar a direção visual (fundo claro, preto, laranja), reduzir espaços verticais, não repetir informações, reforçar o benefício para o empresário e manter textos curtos. A referência `referencia-landing.html` é a fonte visual e de texto: **usar os textos exatamente como estão nela**.
 
+> **Revisão 3 (09/11/2026), inspirada na estrutura de collabsec.com.br/seja-um-parceiro (sem copiar textos nem marca).** Prevalece sobre as seções 2 a 4 abaixo onde houver diferença; a referência `referencia-landing.html` é a fonte final.
+>
+> Nova ordem: 1 Oportunidade · 2 **Um modelo simples de indicação** (4 passos do negócio, logo após o herói: Você indica a empresa → A OperumData faz a conexão → Avaliamos e formalizamos → Você recebe sua comissão) · 3 Quanto você ganha · 4 **Transforme seus contatos em comissões** (benefício para o empresário + duas listas com marcadores: "Você pode indicar empresas de:" com os 6 segmentos e "Por que participar:" com 3 itens que não repetem os selos do herói) · 5 Quem é a OperumData + convite discreto do Facebook · 6 Cadastro · 7 Perguntas frequentes · 8 **Faixa final escura** com "Seus contatos podem valer até R$ 300 por empresa." e botão principal · Rodapé.
+>
+> Opcional, depende da OperumData: botão flutuante de WhatsApp com número oficial (não incluído sem número aprovado).
+
 Ordem: 1 Oportunidade · 2 Quanto você ganha · 3 O que você leva ao empresário (com empresas procuradas) · 4 Como funciona + Quem é a OperumData + Facebook · 5 Cadastro · 6 Perguntas frequentes · Rodapé.
 
 Espaçamento: seções com 40 px de respiro vertical no celular e 64 px no desktop; herói 22/32 px no celular.
