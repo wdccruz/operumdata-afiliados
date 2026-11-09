@@ -164,28 +164,42 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0}
   .btn-light{width:auto}
 }
 
-/* Página de prospecção remota */
-.perks{display:grid;gap:12px;margin-top:18px;padding:0;list-style:none}
-.perks li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
-.perks svg{width:40px;height:40px;padding:9px;border-radius:10px;background:var(--accent-soft);stroke:var(--accent-strong);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.perks b{display:block;font-size:17px;margin-bottom:2px}.perks span{color:var(--text-2);font-size:15px}
-.steps-5{grid-template-columns:1fr}
-.important{margin-top:20px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--text);border-radius:var(--r);padding:16px 18px;font-size:15px;color:var(--text-2)}
-.important b{color:var(--text)}
+/* Formulário de candidatura: grupo de opções */
 .radios{border:0;padding:0;margin:0;display:flex;gap:8px;flex-wrap:wrap}
 .radios legend{font-weight:600;font-size:15px;margin:12px 0 6px;padding:0}
 .radios label{margin:0;font-weight:500;font-size:15px;border:1.5px solid #D1D5DB;border-radius:var(--r-sm);padding:10px 16px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;min-height:44px}
 .radios input{accent-color:var(--accent-strong);width:18px;height:18px;margin:0}
 .radios label:has(input:checked){border-color:var(--accent-strong);background:var(--accent-soft)}
-.pitch{display:grid;gap:12px;margin-top:16px}
-.pitch .list-card p{margin:0;color:var(--text-2);font-size:15px}
-@media (min-width:768px){
-  .perks{grid-template-columns:repeat(4,1fr)}
-  .perks li{grid-template-columns:1fr;gap:10px}
-  .steps-5{grid-template-columns:repeat(5,1fr)}
-  .pitch{grid-template-columns:1fr 1fr;gap:16px}
-}
+
 .hero-card .r b{white-space:nowrap;margin-left:12px}
-.perks li>div{align-self:start}
-@media (min-width:768px){.perks li{align-content:start}}
 .opt{font-weight:400;color:var(--muted)}
+
+/* Bloco "O que faz a OperumData?" (as duas páginas) */
+.biz{display:grid;gap:20px}
+.biz-text p{color:var(--text-2);margin:0 0 10px;max-width:620px}
+.biz-text .biz-lead{font-size:18px;font-weight:600;color:var(--text)}
+.biz-text b{color:var(--text)}
+.biz-example{background:var(--accent-soft);border-radius:var(--r-sm);padding:10px 14px;color:#431407!important}
+.btn-fb{margin-top:6px}.btn-fb svg{width:18px;height:18px;fill:#1877F2;flex:none}
+.biz-text .biz-note{font-size:13px;color:var(--muted);margin-top:10px}
+.biz-flow{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:center}
+.biz-flow li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.biz-flow svg{width:44px;height:44px;padding:10px;border-radius:12px;background:var(--text);stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.biz-flow b{display:block;font-size:16px}.biz-flow span{color:var(--text-2);font-size:14px}
+.alt .biz-flow li{background:#fff}
+section:not(.alt) .biz-flow li{background:var(--bg-alt);border-color:transparent}
+/* Quem faz o quê (herói da prospecção) */
+.hero-card .who{font-size:16px!important;color:var(--text)!important}
+.hero-card .r span{font-size:15px}
+/* Condições discretas */
+.fine{padding:8px 0 32px}
+.fine details{border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 16px}
+.fine summary{font-size:14px;color:var(--text-2)}
+.fine ul{padding-left:18px;font-size:14px}.fine p{font-size:13px;color:var(--muted)}
+.nav-remote{border:1.5px solid var(--accent);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--accent-strong)!important}
+.hide-sm{display:none}
+@media (min-width:768px){
+  .biz{grid-template-columns:1.25fr 1fr;gap:48px;align-items:center}
+  .hide-sm{display:inline}
+  .fine{padding:0 0 48px}
+}
